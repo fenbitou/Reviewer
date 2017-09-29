@@ -123,28 +123,29 @@ export default {
       this.showRegister = false
       this.showLogin = true
     },
-    register(){
-    if(this.newUsername == "" || this.newPassword == ""){
+    register() {
+      if (this.newUsername == "" || this.newPassword == "") {
         alert("请输入用户名或密码")
-    }else{
-        let data = {'username':this.newUsername,'password':this.newPassword}
-        this.$http.post('http://localhost/vueapi/index.php/Home/user/register',data).then((res)=>{
-            console.log(res)
-            if(res.data == "ok"){
-                this.tishi = "注册成功"
-                this.showTishi = true
-                this.username = ''
-                this.password = ''
-                 /*注册成功之后再跳回登录页*/
-                setTimeout(function(){
-                    this.showRegister = false
-                    this.showLogin = true
-                    this.showTishi = false
-                }.bind(this),1000)
-            }
+      }
+      else {
+        let data = { 'username': this.newUsername, 'password': this.newPassword }
+        this.$http.post('http://localhost/vueapi/index.php/Home/user/register', data).then((res) => {
+          console.log(res)
+          if (res.data == "ok") {
+            this.tishi = "注册成功"
+            this.showTishi = true
+            this.username = ''
+            this.password = ''
+            /*注册成功之后再跳回登录页*/
+            setTimeout(function() {
+              this.showRegister = false
+              this.showLogin = true
+              this.showTishi = false
+            }.bind(this), 1000)
+          }
         })
+      }
     }
-}
   }
 }
 </script>
