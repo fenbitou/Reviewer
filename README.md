@@ -63,7 +63,7 @@
     > 4. 简单的返回值如success无需翻译。    
 
  
-example:
+    example:
     ```
     basePath: /api
     schemes:
@@ -85,7 +85,7 @@ example:
     description: 通过HTTP Basic Auth的OAuth用户证书来授权.
     ```
 
-3. 参考文章[git学习笔记](http://www.cnblogs.com/wufangfang/p/6085767.html)以及[git多人合作](http://www.jianshu.com/p/819354c035a4),在本项目的dev分支下分出属于自己的功能分支，完成翻译后的文档后再合并到dev分支中。
+3. 参考文章[git学习笔记](http://www.cnblogs.com/wufangfang/p/6085767.html)以及[git多人合作](http://www.jianshu.com/p/819354c035a4)，在本项目的dev分支下分出属于自己的功能分支，完成翻译后的文档后再合并到dev分支中。
 
 4. 本周完成上述任务后，请诸位结合项目目标思考除了Hypothes.is已经给出的功能以外我们还需要实现什么功能。
 
