@@ -50,18 +50,20 @@
 ----
 ### 本周任务
 1. 组员各自翻译`hypothesis.yaml` API文档的一部分。   
-    吕畅 : 1-114;   
-    孙成恩 : 115-214;   
-    余盛 : 215-313;  
-    王红钰 : 314-414
+    吕畅 : 1-114行;   
+    孙成恩 : 115-214行;   
+    余盛 : 215-313行;  
+    王红钰 : 314-414行
 
 
 2. 只需要翻译`description`部分。
     > 1. 删除description的英文原文，以中文代替.以中文代替.
     > 2. 涉及专有名词的可以不翻译。
     > 3. 翻译过程中务必参照[在线API文档](https://h.readthedocs.io/en/latest/api/#)通读该文档。
-    > 4. 简单的返回值如success无需翻译。   
-    example:
+    > 4. 简单的返回值如success无需翻译。    
+
+ 
+example:
     ```
     basePath: /api
     schemes:
