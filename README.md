@@ -1,13 +1,15 @@
 # Reviewer
 
-## 工程实践项目目标
+### 工程实践项目目标
 实现一款文档评阅管理系统，主要功能有 文档评阅，评阅信息版本控制，用户管理，内容比对 以及 状态管理等。
 1. 对于用户自有的PDF文献，用户有对该文献进行编辑的功能，且编辑功能需要提供**版本控制**。
 2. 对于非用户自有的文献，用户只能 评论/批注 文献的段落句子。
 3. 参考第三方库: [ITEXTPdf](https://developers.itextpdf.com/content/itext-7-examples/itext-7-manipulating-existing-pdf) , [PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is) , [hypothes.is](https://web.hypothes.is/)
 
 
-## 进度安排
+------
+
+### 进度安排
 从10月15日开始，正式进入工程实践周期，具体计划如下：
 1. 开题。10月25日左右。完成项目需求分析，原型设计，**数据库设计**，技术方案设计，以及**技术可行性验证**。
 2. 开发原型1。11月20日左右。完成项目原型基本功能开发，前后台集成测试。需要演示可运行软件。
@@ -23,11 +25,17 @@
 请所有小组按此计划安排组内分工及工作，特别是**开发原型3**，建议大家保持进度。每个时间节点均占工程实践评分一定比重。
 
 
-## Attention
-1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。完成本周任务。本项目中的RESTful文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
+
+     
 
 -----
-## 我们的一小步
+### Attention
+1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。完成本周任务。本项目中的RESTful文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
+     
+
+
+-----
+### 我们的一小步
 1. 设计数据库。
 > 1. 用户数据库    
     USER-ID（主键）、用户名 、PDF-ID（外键）【数组】
@@ -35,9 +43,12 @@
     PDF-ID（主键） 、PDF标题 、USER-ID 、PDF内容
 
 2. 实现目标  
-    实现**[hypothes.is](https://web.hypothes.is/)**的可运行DEMO。
+    实现[**hypothes.is**](https://web.hypothes.is/)的可运行DEMO。
 
-## 本周任务
+     
+
+----
+### 本周任务
 1. 组员各自翻译`hypothesis.yaml` API文档的一部分。   
     吕畅 : 1-114;   
     孙成恩 : 115-214;   
