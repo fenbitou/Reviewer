@@ -5,6 +5,7 @@
 1. 对于用户自有的PDF文献，用户有对该文献进行编辑的功能，且编辑功能需要提供**版本控制**。
 2. 对于非用户自有的文献，用户只能 评论/批注 文献的段落句子。
 3. 参考第三方库: [ITEXTPdf](https://developers.itextpdf.com/content/itext-7-examples/itext-7-manipulating-existing-pdf) , [PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is) , [hypothes.is](https://web.hypothes.is/)
+4. 后端组需要看懂[**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)
 
 ## 进度安排
 从10月15日开始，正式进入工程实践周期，具体计划如下：
