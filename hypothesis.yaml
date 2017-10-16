@@ -1,0 +1,414 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Hypothesis
+  description: |
+    # Hypothesis API documentation
+
+    This document details the Hypothesis public HTTP API. It is targeted at
+    developers interested in integrating functionality from Hypothesis into
+    their own applications.
+
+    ## Authorization
+
+    ### API tokens
+    Some of the API URLs documented below require a valid API token.
+    To use these API URLs you should:
+
+    1. Generate yourself an API token on your [Hypothesis developer
+       page](https://hypothes.is/account/developer) (you must be logged in to
+       Hypothesis to get to this page).
+    2. Put the API token in the `Authorization` header in your request.
+
+    *Example request:*
+
+        GET /api
+        Host: hypothes.is
+        Accept: application/json
+        Authorization: Bearer 6879-nUYZBzc15MsjDDicz-0xEaKBrVGGruwCHW9-p8BMqq4
+
+    (Replace `6879-nUYZBzc15MsjDDicz-0xEaKBrVGGruwCHW9-p8BMqq4` with your own API token.)
+
+    ### Client credentials direct authorization
+    The user creation API is intended for use by "third-party accounts" clients.
+    These endpoints are authenticated by HTTP Basic Auth using your client ID as
+    the username and your client secret as the password.
+
+    For example, with client details as follows
+
+        Client ID: 96653f8e-80be-11e6-b32b-c7bcde86613a
+        Client Secret: E-hReVMuRyZbyr1GikieEw4JslaM6sDpb18_9V59PFw
+
+    you can compute the Authorization header [as described in
+    RFC7617](https://tools.ietf.org/html/rfc7617):
+
+        $ echo -n '96653f8e-80be-11e6-b32b-c7bcde86613a:E-hReVMuRyZbyr1GikieEw4JslaM6sDpb18_9V59PFw' | base64
+        OTY2NTNmOGUtODBiZS0xMWU2LWIzMmItYzdiY2RlODY2MTNhOkUtaFJlVk11UnlaYnlyMUdpa2llRXc0SnNsYU02c0RwYjE4XzlWNTlQRnc=
+
+    *Example request:*
+
+        POST /users
+        Host: hypothes.is
+        Accept: application/json
+        Content-Type: application/json
+        Authorization: Basic OTY2NTNmOGUtODBiZS0xMWU2LWIzMmItYzdiY2RlODY2MTNhOkUtaFJlVk11UnlaYnlyMUdpa2llRXc0SnNsYU02c0RwYjE4XzlWNTlQRnc=
+
+        {
+          "authority": "example.com",
+          "username": "jbloggs1",
+          "email": "jbloggs1@example.com"
+        }
+
+  termsOfService: https://hypothes.is/terms-of-service
+  license:
+    name: BSD (2-Clause)
+    url: https://github.com/hypothesis/h/blob/master/LICENSE
+host: hypothes.is
+basePath: /api
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  developerAPIKey:
+    type: apiKey
+    description: Authorize with a developer API key.
+    name: Authorization
+    in: header
+  authClientCredentials:
+    type: basic
+    description: Authorize using OAuth client credentials with HTTP Basic Auth.
+security:
+  - developerAPIKey: []
+paths:
+  /:
+    get:
+      summary: Service root
+      description: Provides a list of links to resources offered by the API.
+      operationId: root
+      responses:
+        '200':
+          description: Success
+      security: []
+  /annotations:
+    post:
+      summary: Create a new annotation
+      operationId: createAnnotation
+      parameters:
+        - name: annotation
+          in: body
+          description: Annotation to be created
+          required: true
+          schema:
+            $ref: '#/definitions/NewAnnotation'
+      responses:
+        '200':
+          description: Annotation successfully created
+          schema:
+            $ref: '#/definitions/Annotation'
+        '400':
+          description: Could not create annotation from your request
+          schema:
+            $ref: '#/definitions/Error'
+  /annotations/{id}:
+    get:
+      summary: Fetch an annotation
+      operationId: fetchAnnotation
+      parameters:
+        - name: id
+          in: path
+          description: ID of annotation to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Annotation'
+        '404':
+          description: Annotation not found or no permission to view
+          schema:
+            $ref: '#/definitions/Error'
+    patch:
+      summary: Update an annotation
+      description: |
+        This endpoint is available under both the `PATCH` and `PUT`
+        request methods. Both endpoints have PATCH-characteristics
+        as defined in [RFC5789](https://tools.ietf.org/html/rfc5789#section-1),
+        meaning the request body does not have to include the whole annotation
+        object.
+
+        New implementations should use the `PATCH` request method, and existing
+        implementations continue to work under `PUT` but should switch to `PATCH`.
+
+      operationId: updateAnnotation
+      parameters:
+        - name: id
+          in: path
+          description: ID of annotation to return
+          required: true
+          type: string
+        - name: annotation
+          in: body
+          description: Updated annotation body
+          required: true
+          schema:
+            $ref: '#/definitions/NewAnnotation'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Annotation'
+        '400':
+          description: Could not create annotation from your request
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Annotation not found or no permission to update
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Delete an annotation
+      operationId: deleteAnnotation
+      parameters:
+        - name: id
+          in: path
+          description: ID of annotation to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            required:
+              - deleted
+              - id
+            properties:
+              deleted:
+                type: boolean
+                enum:
+                  - true
+              id:
+                type: string
+        '404':
+          description: Annotation not found or no permission to delete
+          schema:
+            $ref: '#/definitions/Error'
+  /profile:
+    get:
+      summary: Get the user's profile
+      description: >
+        This can either be accessed with an API key, in which case it will show
+        the authenticated user's profile, or without, in which case it will show
+        information for a logged-out profile, including only public groups for
+        the current authority.
+      parameters:
+        - name: authority
+          in: query
+          description: >
+            The current authority if the user is not logged in.
+          required: false
+          type: string
+          default: "hypothes.is"
+      responses:
+        '200':
+          description: Profile information
+          schema:
+            $ref: '#/definitions/Profile'
+  /search:
+    get:
+      summary: Search for annotations
+      operationId: search
+      parameters:
+        - name: limit
+          in: query
+          description: The maximum number of annotations to return.
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 200
+          default: 20
+        - name: offset
+          in: query
+          description: >
+            The minimum number of initial annotations to skip. This is
+            used for pagination.
+          required: false
+          type: integer
+          default: 0
+          minimum: 0
+        - name: sort
+          in: query
+          description: The field by which annotations should be sorted.
+          required: false
+          type: string
+          default: updated
+        - name: order
+          in: query
+          description: The order in which the results should be sorted.
+          required: false
+          type: string
+          enum: [asc, desc]
+          default: desc
+        - name: uri
+          in: query
+          description: |
+            Limit the results to annotations matching the specific URI or equivalent URIs.
+
+            URI can be a URL (a web page address) or a URN representing another kind of resource such as DOI (Digital Object Identifier) or a PDF fingerprint.
+          required: false
+          type: string
+        - name: url
+          in: query
+          description: |
+            Alias of `uri`.
+          required: false
+          type: string
+        - name: user
+          in: query
+          description: Limit the results to annotations made by the specified user.
+          required: false
+          type: string
+        - name: group
+          in: query
+          description: Limit the results to annotations made in the specified group.
+          required: false
+          type: string
+        - name: tag
+          in: query
+          description: Limit the results to annotations tagged with the specified value.
+          required: false
+          type: string
+        - name: any
+          in: query
+          description: |
+            Limit the results to annotations in which one of a number of common fields contain the passed value.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Search results
+          schema:
+            $ref: '#/definitions/SearchResults'
+  /users:
+    post:
+      summary: Create a new user
+      description: |
+        Only for specific auth clients, this API call allows clients with a
+        designated authority to create users within their authority.
+      operationId: createUser
+      parameters:
+        - name: user
+          in: body
+          description: User to be created
+          required: true
+          schema:
+            $ref: '#/definitions/NewUser'
+      responses:
+        '200':
+          description: User successfully created
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Could not create user from your request
+          schema:
+            $ref: '#/definitions/Error'
+      security:
+        - authClientCredentials: []
+  /users/{username}:
+    patch:
+      summary: Update an existing user
+      description: |
+        Only for specific auth clients, this API call allows clients with a
+        designated authority to update users within their authority.
+      operationId: updateUser
+      parameters:
+        - name: user
+          in: body
+          description: User to be created
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUser'
+      responses:
+        '200':
+          description: User successfully updated
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Could not update user from your request
+          schema:
+            $ref: '#/definitions/Error'
+      security:
+        - authClientCredentials: []
+  /groups/{id}/members/{user}:
+    delete:
+      summary: Remove a member from a group
+      operationId: deleteGroupMember
+      parameters:
+        - name: id
+          in: path
+          description: Public ID of the group
+          required: true
+          type: string
+        - name: user
+          in: path
+          description: |
+            The user to remove from the group. For now, only the value `me` is
+            supported, representing the currently-authenticated user.
+          required: true
+          type: string
+          enum: ['me']
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Group not found
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  NewAnnotation:
+    $ref: './schemas/annotation-schema.json'
+  Annotation:
+    allOf:
+      - $ref: '#/definitions/NewAnnotation'
+      - required:
+        - id
+        properties:
+          id:
+            type: string
+  Error:
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        type: string
+        enum:
+          - failure
+      reason:
+        type: string
+        description: A human-readable description of the reason(s) for failure.
+  SearchResults:
+    type: object
+    required:
+      - rows
+      - total
+    properties:
+      rows:
+        type: array
+        items:
+          $ref: '#/definitions/Annotation'
+      total:
+        description: Total number of results matching query.
+        type: integer
+  NewUser:
+    $ref: './schemas/new-user-schema.json'
+  UpdateUser:
+    $ref: './schemas/update-user-schema.json'
+  User:
+    $ref: './schemas/user-schema.json'
+  Profile:
+    $ref: './schemas/profile-schema.json'

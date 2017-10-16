@@ -26,15 +26,12 @@
 
 
 ## Attention
-1.  熟悉[Git团队合作的基本操作](http://blog.csdn.net/gpwner/article/details/53140016)以及[Git基本操作](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)。   
-**在本仓库的test文件夹下提交任何文件（比如README.md）测试提交流程。**
-2. 如果后端数据库使用Mongodb，需要先安装[Node.js](http://nodejs.cn/download/)和[Mongodb](https://www.mongodb.com/download-center#community)。    
-**数据库选型尚未确定**。
-3. 后端技术栈：通过约定的Restful数据接口，~~在`express`中操作`mongogoose`调用数据。~~（待确定）
+1. **数据库选型尚未确定**。~~如果后端数据库使用Mongodb，需要先安装[Node.js](http://nodejs.cn/download/)和[Mongodb](https://www.mongodb.com/download-center#community)~~。    
+2. 后端技术栈：通过约定的Restful数据接口，~~在`express`中操作`mongogoose`调用数据。~~
 
 
 -----
-## 我们的一小步也是世界的一小步
+## 我们的一小步
 1. 设计数据库。
 > 1. 用户数据库    
     USER-ID（主键）、用户名 、PDF-ID（外键）【数组】
@@ -44,5 +41,43 @@
 2. 设计接口 (Restful)
 
 3. 实现目标  
-    在文档浏览页面，能够**调用第三方库**展示文字内容。
+    在文档浏览页面，能够**调用第三方库**展示PDF。
+
+## 本周任务
+1. 组员各自翻译`hypothesis.yaml` API文档的一部分。
+    姓名 | 负责行数 
+    ---- |------
+    吕畅 | 1-114
+    孙成恩 | 115-214
+    余盛 | 215-313
+    王红钰  | 314-414
+
+2. 只需要翻译`description`部分。
+    > 1. 删除description的英文原文，以中文代替.以中文代替.
+    > 2. 涉及专有名词的可以不翻译。
+    > 3. 翻译过程中务必参照[在线API文档](https://h.readthedocs.io/en/latest/api/#)阅读该文档。
+    > 4. 简单的返回值如success无需翻译。   
+
+    example:
+    ```
+    basePath: /api
+    schemes:
+    - https
+    consumes:
+    - application/json
+    produces:
+    - application/json
+    securityDefinitions:
     
+    developerAPIKey:
+    type: apiKey
+    description: 利用一个开发者的API key授权.
+    name: Authorization
+    in: header
+    
+    authClientCredentials:
+    type: basic
+    description: 通过HTTP Basic Auth的OAuth用户证书来授权.
+    ```
+
+3. 
