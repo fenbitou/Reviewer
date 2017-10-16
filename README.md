@@ -24,7 +24,7 @@
 
 
 ## Attention
-1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。完成本周任务。本项目中的RESTfulAPI文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
+1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。完成本周任务。本项目中的RESTful文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
 
 -----
 ## 我们的一小步
