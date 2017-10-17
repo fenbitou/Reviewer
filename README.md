@@ -58,9 +58,10 @@
     余盛 : 215-313行;  
     王红钰 : 314-414行
 
+    如果发现翻译部分有差异，可以**实时关注dev分支下的文档文件**。
 
 2. 只需要翻译`description`部分。
-    > 1. 删除description的英文原文，以中文代替.以中文代替.
+    > 1. 删除description的英文原文，以中文代替.
     > 2. 涉及专有名词的可以不翻译。
     > 3. 翻译过程中务必参照[在线API文档](https://h.readthedocs.io/en/latest/api/#)通读该文档。
     > 4. 简单的返回值如success无需翻译。    
@@ -88,7 +89,7 @@
     description: 通过HTTP Basic Auth的OAuth用户证书来授权.
     ```
 
-3. 参考文章[git学习笔记](http://www.cnblogs.com/wufangfang/p/6085767.html)以及[git多人合作](http://www.jianshu.com/p/819354c035a4)，在本项目的dev分支下分出属于自己的功能分支，完成翻译后的文档后再合并到dev分支中。
+3. 参考文章[git学习笔记](http://www.cnblogs.com/wufangfang/p/6085767.html)以及[git多人合作](http://www.jianshu.com/p/819354c035a4), 在本项目的dev分支下分出属于自己的功能分支(自己的功能分支不要远程提交)，完成翻译后的文档后再合并到dev分支中, 然后再git push origin dev 到远程dev分支中。
 
 4. 本周完成上述任务后，请诸位结合项目目标思考除了Hypothes.is已经给出的功能以外我们还需要实现什么功能。
 
