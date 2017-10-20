@@ -109,8 +109,8 @@ paths:
             $ref: '#/definitions/Error'
   /annotations/{id}:
     get:
-      summary: Fetch an annotation
-      operationId: fetchAnnotation
+      summary: 获取注释
+      operationId: 取注释
       parameters:
         - name: id
           in: path
@@ -127,7 +127,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     patch:
-      summary: Update an annotation
+      summary: 更新注释
       description: |     
         该端点在`PATCH`和`PUT`两种请求方式下都可以使用。
         两个端点都具有PATCH特性，如[RFC5789](https://tools.ietf.org/html/rfc5789#section-1)中所定义的，
@@ -139,7 +139,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of annotation to return
+          description: 要返回的注解的ID
           required: true
           type: string
         - name: annotation
@@ -154,20 +154,20 @@ paths:
           schema:
             $ref: '#/definitions/Annotation'
         '400':
-          description: Could not create annotation from your request
+          description: 无法从请求中创建注释
           schema:
             $ref: '#/definitions/Error'
         '404':
-          description: Annotation not found or no permission to update
+          description: 未找到注释或无更新权限
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: Delete an annotation
+      summary: 删除注释
       operationId: deleteAnnotation
       parameters:
         - name: id
           in: path
-          description: ID of annotation to return
+          description: 要返回的注解的ID
           required: true
           type: string
       responses:
@@ -186,38 +186,36 @@ paths:
               id:
                 type: string
         '404':
-          description: Annotation not found or no permission to delete
+          description: 未找到注释或无权限删除
           schema:
             $ref: '#/definitions/Error'
   /profile:
     get:
-      summary: Get the user's profile
+      summary: 获取用户的个人资料
       description: >
-        This can either be accessed with an API key, in which case it will show
-        the authenticated user's profile, or without, in which case it will show
-        information for a logged-out profile, including only public groups for
-        the current authority.
+      这可以使用API密钥访问，在这种情况下，它将显示经过身份验证的用户的配置文件，
+      或者在这种情况下，他将显示已注销配置文件的信息，仅包括当前权限的公共组
       parameters:
         - name: authority
           in: query
           description: >
-            The current authority if the user is not logged in.
+            当前权限，如果用户没有登录
           required: false
           type: string
           default: "hypothes.is"
       responses:
         '200':
-          description: Profile information
+          description: 档案信息
           schema:
             $ref: '#/definitions/Profile'
   /search:
     get:
-      summary: Search for annotations
+      summary: 搜索注释
       operationId: search
       parameters:
         - name: limit
           in: query
-          description: The maximum number of annotations to return.
+          description: 要返回的最大注释数
           required: false
           type: integer
           minimum: 0
@@ -226,21 +224,20 @@ paths:
         - name: offset
           in: query
           description: >
-            The minimum number of initial annotations to skip. This is
-            used for pagination.
+          要跳过的初始注释的最小数量，这用于分页
           required: false
           type: integer
           default: 0
           minimum: 0
         - name: sort
           in: query
-          description: The field by which annotations should be sorted.
+          description: 应该对注释进行排序的字段
           required: false
           type: string
           default: updated
         - name: order
           in: query
-          description: The order in which the results should be sorted.
+          description: 排序结果的顺序
           required: false
           type: string
           enum: [asc, desc]
