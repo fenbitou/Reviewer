@@ -1,4 +1,4 @@
-swagger: "2.0"
+﻿swagger: "2.0"
 info:
   version: 1.0.0
   title: Hypothesis
@@ -144,7 +144,7 @@ paths:
           type: string
         - name: annotation
           in: body
-          description: Updated annotation body
+          description: 更新标注内容
           required: true
           schema:
             $ref: '#/definitions/NewAnnotation'
