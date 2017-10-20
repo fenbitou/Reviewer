@@ -5,7 +5,7 @@ info:
   description: |
     # Hypothesis API documentation
     本文档展示了Hypothesis公共HTTP API的各项细节。它旨在帮助希望将Hypothesis总体
-    集成到自己项目的程序员。
+    集成到自己项目的开发者。
 
     ## Authorization
 
@@ -305,7 +305,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
         '400':
-          description: Could not create user from your request
+          description: 无法响应你的请求创建用户
           schema:
             $ref: '#/definitions/Error'
       security:
@@ -314,8 +314,8 @@ paths:
     patch:
       summary: Update an existing user
       description: |
-        Only for specific auth clients, this API call allows clients with a
-        designated authority to update users within their authority.
+        只针对具体授权的客户端, 此API调用允许有指定权限的客户端
+        用他们的权限更新用户
       operationId: updateUser
       parameters:
         - name: user
@@ -326,11 +326,11 @@ paths:
             $ref: '#/definitions/UpdateUser'
       responses:
         '200':
-          description: User successfully updated
+          description: 成功更新用户信息
           schema:
             $ref: '#/definitions/User'
         '400':
-          description: Could not update user from your request
+          description: 不能响应你的要求更新用户信息
           schema:
             $ref: '#/definitions/Error'
       security:
@@ -342,22 +342,21 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Public ID of the group
+          description: 组的公共ID
           required: true
           type: string
         - name: user
           in: path
           description: |
-            The user to remove from the group. For now, only the value `me` is
-            supported, representing the currently-authenticated user.
-          required: true
+            从组中移除的客户。现在只有值“me”是被支持的,
+            代表当前已认证的用户. 
           type: string
           enum: ['me']
       responses:
         '204':
           description: Success
         '404':
-          description: Group not found
+          description: 未找到组
           schema:
             $ref: '#/definitions/Error'
 definitions:
@@ -382,7 +381,7 @@ definitions:
           - failure
       reason:
         type: string
-        description: A human-readable description of the reason(s) for failure.
+        description: 对失败原因的可读性描述
   SearchResults:
     type: object
     required:
@@ -394,7 +393,7 @@ definitions:
         items:
           $ref: '#/definitions/Annotation'
       total:
-        description: Total number of results matching query.
+        description: 与查询匹配的结果的总数
         type: integer
   NewUser:
     $ref: './schemas/new-user-schema.json'
