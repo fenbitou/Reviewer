@@ -15,7 +15,7 @@ info:
     为了使用这些API URLs你需要：
     1. 在[Hypothesis developer page](https://hypothes.is/account/developer)
     页面生成自己的API token (你必须要首先登陆后才能看到此页面).
-    2. 将API token放到你的请求的`Authorization`的头部。//TEST
+    2. 将API token放到你的请求的`Authorization`的头部。
 
     *Example request:*
 
