@@ -1,21 +1,24 @@
-﻿swagger: "2.0"
+swagger: "2.0"
 info:
   version: 1.0.0
   title: Hypothesis
   description: |
     # Hypothesis API documentation
-    本文档展示了Hypothesis公共HTTP API的各项细节。它旨在帮助希望将Hypothesis总体
-    集成到自己项目的程序员。
+
+    This document details the Hypothesis public HTTP API. It is targeted at
+    developers interested in integrating functionality from Hypothesis into
+    their own applications.
 
     ## Authorization
 
     ### API tokens
-    本文档展示的部分API URL需要有效的API token。
+    Some of the API URLs documented below require a valid API token.
     To use these API URLs you should:
-    为了使用这些API URLs你需要：
-    1. 在[Hypothesis developer page](https://hypothes.is/account/developer)
-    页面生成自己的API token (你必须要首先登陆后才能看到此页面).
-    2. 将API token放到你的请求的`Authorization`的头部。
+
+    1. Generate yourself an API token on your [Hypothesis developer
+       page](https://hypothes.is/account/developer) (you must be logged in to
+       Hypothesis to get to this page).
+    2. Put the API token in the `Authorization` header in your request.
 
     *Example request:*
 
@@ -24,18 +27,20 @@ info:
         Accept: application/json
         Authorization: Bearer 6879-nUYZBzc15MsjDDicz-0xEaKBrVGGruwCHW9-p8BMqq4
 
-    (将`6879-nUYZBzc15MsjDDicz-0xEaKBrVGGruwCHW9-p8BMqq4` 替换成自己的API token.)
+    (Replace `6879-nUYZBzc15MsjDDicz-0xEaKBrVGGruwCHW9-p8BMqq4` with your own API token.)
 
     ### Client credentials direct authorization
-    用户创建API由“第三方帐户”客户端使用。
-    这些端点通过HTTP Basic Auth进行身份验证，使用您的Client ID作为用户名，您的Client 密码作为密码。
+    The user creation API is intended for use by "third-party accounts" clients.
+    These endpoints are authenticated by HTTP Basic Auth using your client ID as
+    the username and your client secret as the password.
 
-    例如，客户端的详细信息如下
+    For example, with client details as follows
 
         Client ID: 96653f8e-80be-11e6-b32b-c7bcde86613a
         Client Secret: E-hReVMuRyZbyr1GikieEw4JslaM6sDpb18_9V59PFw
 
-    你可以在[RFC7617中所描述的](https://tools.ietf.org/html/rfc7617)计算标注的头部:
+    you can compute the Authorization header [as described in
+    RFC7617](https://tools.ietf.org/html/rfc7617):
 
         $ echo -n '96653f8e-80be-11e6-b32b-c7bcde86613a:E-hReVMuRyZbyr1GikieEw4JslaM6sDpb18_9V59PFw' | base64
         OTY2NTNmOGUtODBiZS0xMWU2LWIzMmItYzdiY2RlODY2MTNhOkUtaFJlVk11UnlaYnlyMUdpa2llRXc0SnNsYU02c0RwYjE4XzlWNTlQRnc=
@@ -69,19 +74,19 @@ produces:
 securityDefinitions:
   developerAPIKey:
     type: apiKey
-    description: 利用一个开发者的API key授权.
+    description: Authorize with a developer API key.
     name: Authorization
     in: header
   authClientCredentials:
     type: basic
-    description: 通过HTTP Basic Auth的OAuth用户证书来授权.
+    description: Authorize using OAuth client credentials with HTTP Basic Auth.
 security:
   - developerAPIKey: []
 paths:
   /:
     get:
       summary: Service root
-      description: 给出由API提供的资源链表。
+      description: Provides a list of links to resources offered by the API.
       operationId: root
       responses:
         '200':
@@ -94,17 +99,17 @@ paths:
       parameters:
         - name: annotation
           in: body
-          description: 新建一个标注。
+          description: Annotation to be created
           required: true
           schema:
             $ref: '#/definitions/NewAnnotation'
       responses:
         '200':
-          description: 成功新建一个标注。
+          description: Annotation successfully created
           schema:
             $ref: '#/definitions/Annotation'
         '400':
-          description: 通过你的请求不能新建标注。
+          description: Could not create annotation from your request
           schema:
             $ref: '#/definitions/Error'
   /annotations/{id}:
@@ -114,7 +119,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: 返回标注的ID。
+          description: ID of annotation to return
           required: true
           type: string
       responses:
@@ -123,17 +128,20 @@ paths:
           schema:
             $ref: '#/definitions/Annotation'
         '404':
-          description: 没有找到该标注或无权访问。
+          description: Annotation not found or no permission to view
           schema:
             $ref: '#/definitions/Error'
     patch:
       summary: Update an annotation
-      description: |     
-        该端点在`PATCH`和`PUT`两种请求方式下都可以使用。
-        两个端点都具有PATCH特性，如[RFC5789](https://tools.ietf.org/html/rfc5789#section-1)中所定义的，
-        这意味着请求体不必包括整个标注对象。
+      description: |
+        This endpoint is available under both the `PATCH` and `PUT`
+        request methods. Both endpoints have PATCH-characteristics
+        as defined in [RFC5789](https://tools.ietf.org/html/rfc5789#section-1),
+        meaning the request body does not have to include the whole annotation
+        object.
 
-        新的实现应该使用`PATCH`请求方法。现有的实现可以在`PUT`方式下工作，但应切换到`PATCH`方式。
+        New implementations should use the `PATCH` request method, and existing
+        implementations continue to work under `PUT` but should switch to `PATCH`.
 
       operationId: updateAnnotation
       parameters:
@@ -144,7 +152,7 @@ paths:
           type: string
         - name: annotation
           in: body
-          description: 更新标注内容
+          description: Updated annotation body
           required: true
           schema:
             $ref: '#/definitions/NewAnnotation'
@@ -305,7 +313,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
         '400':
-          description: Could not create user from your request
+          description: 无法响应你的请求创建用户
           schema:
             $ref: '#/definitions/Error'
       security:
@@ -314,23 +322,23 @@ paths:
     patch:
       summary: Update an existing user
       description: |
-        Only for specific auth clients, this API call allows clients with a
-        designated authority to update users within their authority.
+        只针对具体授权的客户端, 此API调用允许有指定权限的客户端
+        用他们的权限更新用户
       operationId: updateUser
       parameters:
         - name: user
           in: body
-          description: User to be created
+          description: 创建用户
           required: true
           schema:
             $ref: '#/definitions/UpdateUser'
       responses:
         '200':
-          description: User successfully updated
+          description: 成功更新用户信息
           schema:
             $ref: '#/definitions/User'
         '400':
-          description: Could not update user from your request
+          description: 不能响应你的要求更新用户信息
           schema:
             $ref: '#/definitions/Error'
       security:
@@ -342,14 +350,14 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Public ID of the group
+          description: 组的公共ID
           required: true
           type: string
         - name: user
           in: path
           description: |
-            The user to remove from the group. For now, only the value `me` is
-            supported, representing the currently-authenticated user.
+            从组中移除的客户。现在只有值“me”是被支持的,
+            代表当前已认证的用户. 
           required: true
           type: string
           enum: ['me']
@@ -357,7 +365,7 @@ paths:
         '204':
           description: Success
         '404':
-          description: Group not found
+          description: 未找到组
           schema:
             $ref: '#/definitions/Error'
 definitions:
@@ -382,7 +390,7 @@ definitions:
           - failure
       reason:
         type: string
-        description: A human-readable description of the reason(s) for failure.
+        description: 对失败原因的可读性描述
   SearchResults:
     type: object
     required:
@@ -394,7 +402,7 @@ definitions:
         items:
           $ref: '#/definitions/Annotation'
       total:
-        description: Total number of results matching query.
+        description: 与查询匹配的结果的总数
         type: integer
   NewUser:
     $ref: './schemas/new-user-schema.json'
