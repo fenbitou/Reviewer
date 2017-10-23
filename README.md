@@ -38,24 +38,23 @@
 ### 短期任务
 **预计完成时间，2-3周**
 1. 将[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)仓库clone到本地后，在localhost运行起来，观察到该DEMO调用的js文件与调用api接口来自于下图所示，这会严重影响网站访问速度。
-![](http://ww1.sinaimg.cn/large/6fcd7dd9gy1fksf8prklej21h8081mxd.jpg)  
-![](http://ww1.sinaimg.cn/large/6fcd7dd9gy1fksf8psg9yj21gb08674i.jpg)
+![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s1.png)
+![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s2.png)
 > 将相应的js文件或api接口下载下来集成到本地，并替换DEMO相应的调用位置。将集成后的系统提交至dev分支。
 
 2. 利用MySQL创建基础的用户以及PDF表。具体内容见
 >   PDF库   
     PDF-ID（主键） 、PDF标题 、USER-ID 、 PDFauthority、PDF内容
-  
-   需要自行下载几篇英文论文PDF存入到数据库中，MySQL版本请自行协商。
+   需要自行下载几篇英文论文PDF存入到数据库中,本分支下有一个`test.pdf`，MySQL版本请自行协商。
 
 3. 在dev分支下有`ShowPDF`文件夹，这是显示用户PDF列表的简单DEMO。下面是表格的数据接口：
     ```
-        {
-          number: 1,
-          pdfTitle: "吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖",
-          pdfAuthority: "私有",
-          pdfURL: "---------跳转URL----------"
-        },
+    {
+        number: 1,
+        pdfTitle: "吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖",
+        pdfAuthority: "私有",
+        pdfURL: "---------跳转URL----------"
+    },
     ```
     本周任务需要从数据库中取出相应的数据并显示在表格中，`number`字段无需传入，其他字段均需要从数据库中取出。现在暂时不要求完全遵守restful API接口规范（后期仍然要完成），只需要取出相应的值，并且**点击跳转URL后能够跳转至PDF标注界面**。
 
