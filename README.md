@@ -38,8 +38,8 @@
 ### 短期任务
 **预计完成时间，2-3周**
 1. 将[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)仓库clone到本地后，在localhost运行起来，观察到该DEMO调用的js文件与调用api接口来自于下图所示，这会严重影响网站访问速度。
-![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s1.png)
-![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s2.png)
+![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s1.jpg)
+![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s2.jpg)
 > 将相应的js文件或api接口下载下来集成到本地，并替换DEMO相应的调用位置。将集成后的系统提交至dev分支。
 
 2. 利用MySQL创建基础的用户以及PDF表。具体内容见
