@@ -40,12 +40,15 @@
 1. 将[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)仓库clone到本地后，在localhost运行起来，观察到该DEMO调用的js文件与调用api接口来自于下图所示，这会严重影响网站访问速度。
 ![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s1.jpg)
 ![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s2.jpg)
-> 将相应的js文件或api接口下载下来集成到本地，并替换DEMO相应的调用位置。将集成后的系统提交至dev分支。
+> 将相应的js文件或api接口下载下来集成到本地，并替换DEMO相应的调用位置。将集成后的系统提交至dev分支。   
+
 
 2. 利用MySQL创建基础的用户以及PDF表。具体内容见
 >   PDF库   
-    PDF-ID（主键） 、PDF标题 、USER-ID 、 PDFauthority、PDF内容
-   需要自行下载几篇英文论文PDF存入到数据库中,本分支下有一个`test.pdf`，MySQL版本请自行协商。
+    PDF-ID（主键） 、PDF标题 、USER-ID 、 PDFauthority、PDF内容   
+
+需要自行下载几篇英文论文PDF存入到数据库中,本分支下有一个`test.pdf`，MySQL版本请自行协商。   
+
 
 3. 在dev分支下有`ShowPDF`文件夹，这是显示用户PDF列表的简单DEMO。下面是表格的数据接口：
     ```
@@ -56,10 +59,13 @@
         pdfURL: "---------跳转URL----------"
     },
     ```
-    本周任务需要从数据库中取出相应的数据并显示在表格中，`number`字段无需传入，其他字段均需要从数据库中取出。现在暂时不要求完全遵守restful API接口规范（后期仍然要完成），只需要取出相应的值，并且**点击跳转URL后能够跳转至PDF标注界面**。
+    本周任务需要从数据库中取出相应的数据并显示在表格中，`number`字段无需传入，其他字段均需要从数据库中取出。现在暂时不要求完全遵守restful API接口规范（后期仍然要完成），只需要取出相应的值，并且**点击跳转URL后能够跳转至PDF标注界面**。    
 
-4. dev分支下现在并没有[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)的文件夹，请自行clone完成上述`要求1`后再提交至dev分支。**不要影响master分支**，在提交文件夹的时候**切勿覆盖别人已提交的内容**。在上周的翻译文档的任务中，出现过覆盖的情况，**务必先 `git pull` ，再push。**
 
-5. MySQL版本，数据库测试数据内容务必统一，该任务只需要完成一份，请自行协商分工。
+4. dev分支下现在并没有[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)的文件夹，请自行clone完成上述`要求1`后再提交至dev分支。**不要影响master分支**，在提交文件夹的时候**切勿覆盖别人已提交的内容**。在上周的翻译文档的任务中，出现过覆盖的情况，**务必先 `git pull` ，再push。**     
 
-6. 测试用的DEMO表格的数据在 `/ShowPDF/src/components/ShowPDF.vue`中，可以clone在本地后再进行测试。关于Vue项目如何运行，请咨询上过高软的同学或者百度。
+
+5. MySQL版本，数据库测试数据内容务必统一，该任务只需要完成一份，请自行协商分工。    
+
+
+6. 测试用的DEMO表格的数据在 `/ShowPDF/src/components/ShowPDF.vue`中，可以clone在本地后再进行测试。关于Vue项目如何运行，请咨询上过高软的同学或者百度。   
