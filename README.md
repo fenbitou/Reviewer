@@ -23,74 +23,44 @@
 9. 工程实践结束。18年6月。
 
 请所有小组按此计划安排组内分工及工作，特别是**开发原型3**，建议大家保持进度。每个时间节点均占工程实践评分一定比重。
-
-
-
      
 
 -----
 ### Attention
-1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。完成本周任务。本项目中的RESTful文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
+1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。本项目中的RESTful文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
 
 2. 后端组成员需要约定统一的开发平台和Java版本。
-     
 
+3. hypothes.is API的运行DEMO的用户登陆注册功能是集成至hypothes自己的网站上，在我们的评阅系统中不能使用第三方的服务，因此要将用户模块集成在系统中。但由于Reviewer不关注用户模块，因此短期的开发我们不关注用户数据库，测试依旧利用第三方的服务。
 
------
-### 我们的一小步
-1. 设计数据库。
-> 1. 用户数据库    
-    USER-ID（主键）、用户名 、PDF-ID（外键）【数组】
-> 2. PDF库   
-    PDF-ID（主键） 、PDF标题 、USER-ID 、PDF内容
-
-2. 实现目标  
-    实现[**hypothes.is**](https://web.hypothes.is/)的可运行DEMO。
-
-     
 
 ----
-### 本周任务
-**对于yaml文档可以利用`VSCode`文本编辑器打开或编辑，请注意翻译成中文后以UTF-8格式保存，避免合并冲突**  
-1. 组员各自翻译`hypothesis.yaml` API文档的一部分。   
-    吕畅 : 1-114行;   
-    孙成恩 : 115-214行;   
-    余盛 : 215-313行;  
-    王红钰 : 314-414行
+### 短期任务
+**预计完成时间，2-3周**
+1. 将[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)仓库clone到本地后，在localhost运行起来，观察到该DEMO调用的js文件与调用api接口来自于下图所示，这会严重影响网站访问速度。
+![](http://ww1.sinaimg.cn/large/6fcd7dd9gy1fksf8prklej21h8081mxd.jpg)  
+![](http://ww1.sinaimg.cn/large/6fcd7dd9gy1fksf8psg9yj21gb08674i.jpg)
+> 将相应的js文件或api接口下载下来集成到本地，并替换DEMO相应的调用位置。将集成后的系统提交至dev分支。
 
-    如果发现翻译部分有差异，可以**实时关注dev分支下的文档文件**。
+2. 利用MySQL创建基础的用户以及PDF表。具体内容见
+>   PDF库   
+    PDF-ID（主键） 、PDF标题 、USER-ID 、 PDFauthority、PDF内容
+  
+   需要自行下载几篇英文论文PDF存入到数据库中，MySQL版本请自行协商。
 
-2. 只需要翻译`description`部分。
-    > 1. 删除description的英文原文，以中文代替.
-    > 2. 涉及专有名词的可以不翻译。
-    > 3. 翻译过程中务必参照[在线API文档](https://h.readthedocs.io/en/latest/api/#)通读该文档。
-    > 4. 简单的返回值如success无需翻译。    
-
- 
-    example:
+3. 在dev分支下有`ShowPDF`文件夹，这是显示用户PDF列表的简单DEMO。下面是表格的数据接口：
     ```
-    basePath: /api
-    schemes:
-    - https
-    consumes:
-    - application/json
-    produces:
-    - application/json
-    securityDefinitions:
-    
-    developerAPIKey:
-    type: apiKey
-    description: 利用一个开发者的API key授权.
-    name: Authorization
-    in: header
-    
-    authClientCredentials:
-    type: basic
-    description: 通过HTTP Basic Auth的OAuth用户证书来授权.
+        {
+          number: 1,
+          pdfTitle: "吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖",
+          pdfAuthority: "私有",
+          pdfURL: "---------跳转URL----------"
+        },
     ```
+    本周任务需要从数据库中取出相应的数据并显示在表格中，`number`字段无需传入，其他字段均需要从数据库中取出。现在暂时不要求完全遵守restful API接口规范（后期仍然要完成），只需要取出相应的值，并且**点击跳转URL后能够跳转至PDF标注界面**。
 
-3. 参考文章[git学习笔记](http://www.cnblogs.com/wufangfang/p/6085767.html)以及[git多人合作](http://www.jianshu.com/p/819354c035a4), 在本项目的dev分支下分出属于自己的功能分支(自己的功能分支不要远程提交)，完成翻译后的文档后再合并到dev分支中, 然后再git push origin dev 到远程dev分支中。
+4. dev分支下现在并没有[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)的文件夹，请自行clone完成上述`要求1`后再提交至dev分支。**不要影响master分支**，在提交文件夹的时候**切勿覆盖别人已提交的内容**。在上周的翻译文档的任务中，出现过覆盖的情况，**务必先 `git pull` ，再push。**
 
-4. 本周完成上述任务后，请诸位结合项目目标思考除了Hypothes.is已经给出的功能以外我们还需要实现什么功能。
+5. MySQL版本，数据库测试数据内容务必统一，该任务只需要完成一份，请自行协商分工。
 
-5. 本周的任务旨在希望诸位能够去阅读API文档和进一步地了解git多人协作的操作，真正需要翻译的内容并不是很多。
+6. 测试用的DEMO表格的数据在 `/ShowPDF/src/components/ShowPDF.vue`中，可以clone在本地后再进行测试。关于Vue项目如何运行，请咨询上过高软的同学或者百度。
