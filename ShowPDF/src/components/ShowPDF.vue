@@ -18,25 +18,25 @@ export default {
       tableData: [
         {
           number: 1,
-          pdfTitle: "吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖吴彦祖",
+          pdfTitle: "Quantum teleportation of multiple degrees of freedom in a single photon",
           pdfAutority: "私有",
           pdfURL: "---------跳转URL----------"
         },
         {
           number: 2,
-          pdfTitle: "金城武金城武金城武金城武金城武金城武金城武金城武金城武金城武",
+          pdfTitle: "Quantum teleportation of multiple degrees of freedom in a single photon",
           pdfAutority: "公开",
           pdfURL: "---------跳转URL----------"
         },
         {
           number: 3,
-          pdfTitle: "彭于晏彭于晏彭于晏彭于晏彭于晏彭于晏于晏彭于晏彭于晏彭于晏",
+          pdfTitle: "Quantum teleportation of multiple degrees of freedom in a single photon",
           pdfAutority: "公开",
           pdfURL: "---------跳转URL----------"
         },
         {
           number: 4,
-          pdfTitle: "刘德华刘德华刘德华刘德华刘德华刘德华刘德华刘德华刘德华刘德华",
+          pdfTitle: "Quantum teleportation of multiple degrees of freedom in a single photon",
           pdfAutority: "私有",
           pdfURL: "---------跳转URL----------"
         }
