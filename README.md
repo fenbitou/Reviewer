@@ -33,6 +33,8 @@
 
 3. hypothes.is API的运行DEMO的用户登陆注册功能是来自于hypothes自己的服务，在我们的评阅系统中不能使用第三方的服务，因此要将用户登陆注册模块集成在系统中。但由于Reviewer不关注用户模块，因此短期的开发我们不关注用户数据库，测试依旧利用DEMO中提供的第三方的服务。
 
+4. 本仓库的默认分支已经切换至`dev`分支下，向远端仓库推送内容时需要关注自己所处的分支，**切记不要向`master`分支推送**。在提交文件夹的时候**切勿覆盖别人已提交的内容，务必先 `git pull` ，再push。**。  
+
 ----
 ### 短期任务
 **预计完成时间，3周**
@@ -49,7 +51,7 @@
 
     需要自行下载几篇英文论文PDF存入到数据库中，本分支下有一个`test.pdf`可以用来测试。   
 
-3. 在dev分支下有`ShowPDF`文件夹，这是显示用户PDF列表的简单DEMO。下面是表格的数据接口：
+3. 在dev分支下有`dev`文件夹，这是显示用户PDF列表的简单DEMO。下面是表格的数据接口：
     ```
     {
         number: 1,
@@ -60,8 +62,8 @@
     ```
     从数据库中取出相应的数据并显示在表格中，`number`字段无需传入。现在暂时不要求完全遵守restful API接口规范（后期仍然要完成），只需要取出相应的值，并且**点击跳转URL后能够跳转至PDF标注界面**。    
 
-4. dev分支下现在并没有[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)的文件夹，请自行clone完成`要求1`后再提交。**不要影响`master`分支**，在提交文件夹的时候**切勿覆盖别人已提交的内容**。在上周的翻译文档的任务中，出现过这样的情况，**务必先 `git pull` ，再push。**     
+4. dev分支下现在并没有[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)的文件夹，请自行clone完成`要求1`后再提交至`dev`分支。
 
 5. MySQL版本，数据库测试数据内容务必统一，该任务只需要完成一份，请自行协商分工。    
 
-6. 测试用的DEMO表格的数据在 `/ShowPDF/src/components/ShowPDF.vue`中，可以clone在本地后再进行测试。
+6. 测试用的DEMO表格的数据在 `/dev/src/components/ShowPDF.vue`中，可以clone在本地后再进行测试。

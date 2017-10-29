@@ -1,7 +1,7 @@
 {
-  "name": "showpdf",
+  "name": "logindemo",
   "version": "1.0.0",
-  "description": "A simple demo to show users' PDF",
+  "description": "LOGIN DEMO",
   "author": "Chang <lvchang5@live.com>",
   "private": true,
   "scripts": {
@@ -10,7 +10,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "element-ui": "^2.0.0-beta.1",
+    "axios": "^0.17.0",
+    "element-ui": "^2.0.1",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
