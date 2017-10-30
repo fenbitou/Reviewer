@@ -66,4 +66,4 @@
 
 5. MySQL版本，数据库测试数据内容务必统一，该任务只需要完成一份，请自行协商分工。    
 
-6. 测试用的DEMO表格的数据在 `/dev/src/components/ShowPDF.vue`中，可以clone在本地后再进行测试。
+6. 测试用的DEMO表格的数据在 `/ReviewerDev/src/components/ShowPublic.vue`中，可以clone在本地后再进行测试。

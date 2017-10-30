@@ -1,6 +1,6 @@
-# logindemo
+# reviewer
 
-> LOGIN DEMO
+> Reviewer Dev Version
 
 ## Build Setup
 
