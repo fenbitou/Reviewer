@@ -2,7 +2,7 @@
  <div class="content-wrapper">
    <div class="login-container">
       <div class="login-meta">
-        <img src="../assets/logo.png">
+        <img src="../assets/blue@200.png">
         <p>Reviewer - 文档评阅系统</p>
       </div>
       <div class="login-form" @keyup.enter="doLogin">
@@ -30,39 +30,37 @@ export default {
     }
   },
   methods: {
-     methods: {
-      checkValidity() {
-        let isValid = true;
-
-        if (!this.username || !this.password) {
-          this.$message.error({ message: this.username ? "密码不能为空" : "用户名不能为空" });
-          return false;
-        }
-
-        if (!/^[-a-zA-Z0-9_]{2,30}$/.test(this.username)) {
-          this.$message.error({ message: "奇怪的用户名" });
-          isValid = false;
-        }
-
-        if (this.password.legend < 3) {
-          this.$message.error({ message: "密码长度太短" });
-          isValid = false;
-        }
-
-        return isValid;
-      },
-      doLogin() {
-        if (this.checkValidity()) {
-          window.localStorage.setItem("username", this.username);
-          this.$router.push({ path: "/home" });
-        }
-      },
-      doRegister() {
-        this.$router.push({ path: "/register" });
+    checkValidity() {
+      let isValid = true;
+      if (!this.username || !this.password) {
+        this.$message.error({ message: this.username ? "密码不能为空" : "用户名不能为空" });
+        return false;
       }
+
+      if (!/^[-a-zA-Z0-9_]{2,30}$/.test(this.username)) {
+        this.$message.error({ message: "奇怪的用户名" });
+        isValid = false;
+      }
+
+      if (this.password.legend < 3) {
+        this.$message.error({ message: "密码长度太短" });
+        isValid = false;
+      }
+
+      return isValid;
+    },
+    doLogin() {
+      if (this.checkValidity()) {
+        window.localStorage.setItem("username", this.username);
+        this.$router.push({ path: "/home" });
+      }
+    },
+    doRegister() {
+      this.$router.push({ path: "/register" });
     }
   }
 }
+
 </script>
 
 
