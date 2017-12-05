@@ -3,7 +3,7 @@
    <div class="login-container">
       <div class="login-meta">
         <img src="../assets/blue@200.png">
-        <p>Reviewer - 文档评阅系统</p>
+        <p>Reviewer 文档评阅系统</p>
       </div>
       <div class="register-form" @keyup.enter="doLogin">
         <p>系统注册</p>
