@@ -28,10 +28,20 @@
               <span slot="title">公开论文</span>
             </el-menu-item>
 
-            <el-menu-item index="public">
-              <i class="fa fa-fw fa-user"></i>
-              <span slot="title">我的论文</span>
-            </el-menu-item>
+            <el-submenu>
+              <template slot="title">
+                <i class="fa fa-fw fa-wpforms"></i>
+                <span slot="title">我的论文</span>
+              </template>
+              <el-menu-item index="public">
+                <i class="fa fa-fw fa-user"></i>
+                <span slot="title">论文列表</span>
+              </el-menu-item>
+              <el-menu-item index="checkstatus">
+                <i class="fa fa-fw fa-search"></i>
+                <span slot="title">查询论文状态</span>
+              </el-menu-item>
+            </el-submenu>
           </el-menu>
         </el-aside>
 

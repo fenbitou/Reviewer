@@ -3,15 +3,15 @@
    <div class="login-container">
       <div class="login-meta">
         <img src="../assets/blue@200.png">
-        <p>Reviewer - 文档评阅系统</p>
+        <p>Reviewer 文档评阅系统</p>
       </div>
       <div class="login-form" @keyup.enter="doLogin">
         <p>系统登录</p>
         <label>
-          <input type="text" v-model="username" placeholder="用户名">
+          <input type="text" v-model="username" placeholder="用户名"></input>
         </label>
         <label>
-          <input type="password" v-model="password" placeholder="密码">
+          <input type="password" v-model="password" placeholder="密码"></input>
         </label>
         <button @click="doRegister">注册</button>
         <button @click="doLogin">登陆</button>
@@ -52,7 +52,7 @@ export default {
     doLogin() {
       if (this.checkValidity()) {
         window.localStorage.setItem("username", this.username);
-        this.$router.push({ path: "/dashboard" });
+        this.$router.push({ path: "/public" });
       }
     },
     doRegister() {
