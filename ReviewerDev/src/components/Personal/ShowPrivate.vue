@@ -3,7 +3,7 @@
     <!-- search-bar -->
     <div style = "margin-bottom : 10px;" >
       <el-form :inline="true">
-        <el-form-item label="公开搜索">
+        <el-form-item label="搜索">
           <el-input placeholder="关键词" suffix-icon="el-icon-search"></el-input>
         </el-form-item>
         <el-form-item>

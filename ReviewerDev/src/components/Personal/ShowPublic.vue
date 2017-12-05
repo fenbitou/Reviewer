@@ -3,11 +3,11 @@
     <!-- search-bar -->
     <div style = "margin-bottom : 10px;" >
       <el-form :inline="true">
-        <el-form-item label="搜索">
+        <el-form-item label="公开搜索">
           <el-input placeholder="关键词" suffix-icon="el-icon-search"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="search">搜索</el-button>
+          <el-button type="primary" @click="gotopdf">pdfpdf</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -36,6 +36,11 @@ export default {
   name: "PublicPDF",
   data() {
     return {};
+  },
+  methods:{
+    gotopdf(){
+      location.assign('../../viewer/index.html')
+    }
   }
 };
 </script>
