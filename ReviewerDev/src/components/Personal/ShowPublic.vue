@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- search-bar -->
-    <div style = "margin-bottom : 10px;" >
+    <div>
       <el-form :inline="true">
         <el-form-item label="公开搜索">
           <el-input placeholder="关键词" suffix-icon="el-icon-search"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="gotopdf">pdfpdf</el-button>
+          <el-button type="primary" @click="search">PDFPDFPDF</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -26,9 +26,8 @@
         </template>
       </el-table-column>
     </el-table>
-
   </div>
-
+   
 </template>
 
 <script>
@@ -37,9 +36,9 @@ export default {
   data() {
     return {};
   },
-  methods:{
-    gotopdf(){
-      location.assign('../../viewer/index.html')
+  methods: {
+    search() {
+      this.$router.push({ path: "/showpdf" });
     }
   }
 };

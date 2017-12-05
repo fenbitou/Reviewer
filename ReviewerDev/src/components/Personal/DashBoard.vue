@@ -28,6 +28,11 @@
               <span slot="title">公开论文</span>
             </el-menu-item>
 
+            <el-menu-item index="">
+              <i class="fa fa-fw fa-fire"></i>
+              <span slot="title">热门批注</span>
+            </el-menu-item>
+
             <el-submenu>
               <template slot="title">
                 <i class="fa fa-fw fa-wpforms"></i>
@@ -37,9 +42,9 @@
                 <i class="fa fa-fw fa-user"></i>
                 <span slot="title">论文列表</span>
               </el-menu-item>
-              <el-menu-item index="checkstatus">
-                <i class="fa fa-fw fa-search"></i>
-                <span slot="title">查询论文状态</span>
+              <el-menu-item index="324234">
+                <i class="fa fa-fw fa-quote-left"></i>
+                <span slot="title">我的批注</span>
               </el-menu-item>
             </el-submenu>
           </el-menu>

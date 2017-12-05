@@ -6,6 +6,7 @@ import Register from '@/components/Register'
 import Dashboard from '@/components/Personal/Dashboard'
 import ShowPrivate from '@/components/Personal/ShowPrivate'
 import ShowPublic from '@/components/Personal/ShowPublic'
+import ShowPDF from '@/components/Personal/ShowPDF'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path:'/register',
       name:'Register',
       component: Register
+    },
+    {
+      path:'/showpdf',
+      name:'ShowPDF',
+      component: ShowPDF
     },
     {
       path: '/dashboard',
