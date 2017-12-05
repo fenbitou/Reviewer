@@ -22,12 +22,12 @@
 
 <script>
 export default {
-  name: 'Login',
-  data () {
+  name: "Login",
+  data() {
     return {
       username: "",
       password: ""
-    }
+    };
   },
   methods: {
     checkValidity() {
@@ -59,8 +59,7 @@ export default {
       this.$router.push({ path: "/register" });
     }
   }
-}
-
+};
 </script>
 
 
