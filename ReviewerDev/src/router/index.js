@@ -31,12 +31,12 @@ export default new Router({
       component: Dashboard,
       children: [
         {
-          path: 'public',
+          path: '/public',
           name: 'PublicPDF',
           component: ShowPublic
         },
         {
-          path: 'private',
+          path: '/private',
           name: 'PrivatePDF',
           component: ShowPrivate
         }

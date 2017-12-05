@@ -52,7 +52,7 @@ export default {
     doLogin() {
       if (this.checkValidity()) {
         window.localStorage.setItem("username", this.username);
-        this.$router.push({ path: "/home" });
+        this.$router.push({ path: "/dashboard" });
       }
     },
     doRegister() {
