@@ -10,9 +10,9 @@
         <div class="header-nav">
           <el-menu mode="horizontal" background-color="#1976D2" text-color="#ffffff" active-text-color="#ffffff" :router="true">
            
-            <el-submenu index="my">
+            <el-submenu index="">
               <template slot="title"><img src="../../assets/avatar.png" style="width:30px;"> Administrator</template>
-              <el-menu-item index="/signOut"><i class="fa fa-fw fa-sign-out"></i>安全退出</el-menu-item>
+              <el-menu-item index=""><i class="fa fa-fw fa-sign-out"></i>安全退出</el-menu-item>
             </el-submenu>
 
           </el-menu>
@@ -22,8 +22,9 @@
       <el-container>
         <!-- side-bar -->
         <el-aside width="200px">
-          <el-menu default-active="private" :router="true">
-            <el-menu-item index="private">
+          <el-menu default-active="public" :router="true">
+            
+            <el-menu-item index="/public">
               <i class="fa fa-fw fa-list"></i>
               <span slot="title">公开论文</span>
             </el-menu-item>
@@ -33,37 +34,45 @@
               <span slot="title">热门批注</span>
             </el-menu-item>
 
-            <el-submenu>
+            <el-submenu index="">
               <template slot="title">
                 <i class="fa fa-fw fa-wpforms"></i>
                 <span slot="title">我的论文</span>
               </template>
-              <el-menu-item index="public">
+              <el-menu-item index="/private">
                 <i class="fa fa-fw fa-user"></i>
                 <span slot="title">论文列表</span>
               </el-menu-item>
-              <el-menu-item index="324234">
+              <el-menu-item index="">
                 <i class="fa fa-fw fa-quote-left"></i>
                 <span slot="title">我的批注</span>
               </el-menu-item>
             </el-submenu>
+
+            <el-menu-item index="/addpaper">
+              <i class="fa fa-fw fa-plus"></i>
+              <span slot="title">添加论文</span>
+            </el-menu-item>
+
           </el-menu>
         </el-aside>
 
-        <el-container>
-          <el-main>
-            <router-view></router-view>
-          </el-main>
-        </el-container>
+        <!-- 右侧操作部分 -->
+
+        <el-main>
+          <router-view/>
+        </el-main>
 
       </el-container>
+
     </el-container>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: "Dashboard",
+  name: "Layout",
   data() {
     return {};
   }

@@ -22,6 +22,9 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
 
 const app = express()
+//load the rest API. with db
+require("../server/rest-db-server")(app);
+
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -92,10 +95,11 @@ devMiddleware.waitUntilValid(() => {
     if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
       opn(uri)
     }
-    server = app.listen(port)
     _resolve()
   })
 })
+
+var server = app.listen(port)
 
 module.exports = {
   ready: readyPromise,

@@ -34,7 +34,15 @@
 export default {
   name: "PrivatePDF",
   data() {
-    return {};
+    return {
+      tableData:[]
+    };
+  },
+
+  methods: {
+    search() {
+      console.log('click search()');
+    }
   }
 };
 </script>

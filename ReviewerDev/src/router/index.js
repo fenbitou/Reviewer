@@ -3,10 +3,11 @@ import Router from 'vue-router'
 
 import Login from '@/components/Login'
 import Register from '@/components/Register'
-import Dashboard from '@/components/Personal/Dashboard'
+import Layout from '@/components/Personal/Layout'
 import ShowPrivate from '@/components/Personal/ShowPrivate'
 import ShowPublic from '@/components/Personal/ShowPublic'
 import ShowPDF from '@/components/Personal/ShowPDF'
+import AddPaper from '@/components/Personal/AddPaper'
 
 Vue.use(Router)
 
@@ -32,21 +33,28 @@ export default new Router({
       component: ShowPDF
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard,
-      children: [
-        {
-          path: '/public',
-          name: 'PublicPDF',
-          component: ShowPublic
-        },
-        {
-          path: '/private',
-          name: 'PrivatePDF',
-          component: ShowPrivate
-        }
-      ]
+      path: '/public',
+      component: Layout,
+      children: [{
+        path: '/',
+        component: ShowPublic
+      }]
+    },
+    {
+      path: '/private',
+      component: Layout,
+      children: [{
+        path: '/',
+        component: ShowPrivate
+      }]
+    },
+    {
+      path: '/addpaper',
+      component: Layout,
+      children: [{
+        path: '/',
+        component: AddPaper
+      }]
     }
   ]
 })
