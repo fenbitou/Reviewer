@@ -11,6 +11,15 @@
       <el-form-item label="论文链接">
         <el-input v-model="addform.link"></el-input>
       </el-form-item>
+      
+      <el-form-item label="上传论文">
+        <el-upload  class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/">
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__tip" slot="tip">只能上传PDF文件，且不超过16MB</div>
+        </el-upload>
+      </el-form-item>
+      
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
         <el-button type="default" @click="gotoPublic">查看论文</el-button>

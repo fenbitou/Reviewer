@@ -1,5 +1,6 @@
 const state = {
-  paperItems: []
+  paperItems: [],
+  temp:''
 };
 
 export default state

@@ -13,8 +13,8 @@
     </div>
 
     <!-- showlist -->
-    <el-table :data="tableData"  stripe style="width: 100%">
-      <el-table-column  prop="paper_number" label="论文序号"  width="200">
+    <el-table :data="tableData" stripe style="width: 100%">
+      <el-table-column  label="论文序号" type="index">
       </el-table-column>
       <el-table-column  prop="paper_title"  label="论文名称" >
       </el-table-column>
@@ -41,11 +41,8 @@ export default {
   },
 
   methods: {
-    showPdf(index) {
-      this.$router.push({ path: "/showpdf" });
-    },
     deletePdf(index) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该论文, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -59,6 +56,12 @@ export default {
           message: '已取消删除'
         });          
       });
+    },
+    showPdf(index) {
+      let items = store.getters.paperItems;
+      let PDFUrl = items[index].paper_link;
+      store.commit("redirectToShowPDF", PDFUrl);
+      this.$router.push({ path: "/showpdf" });
     }
   },
 
@@ -67,10 +70,8 @@ export default {
       let data = [];
       let items = store.getters.paperItems;
       let i = 0;
-      let j = 0;
       items.forEach((item)=>{
         let obj ={};
-        obj.paper_number = ++j;
         obj.paper_title = item.paper_title;
         obj.paper_author = item.paper_author;
         data[i++] = obj;

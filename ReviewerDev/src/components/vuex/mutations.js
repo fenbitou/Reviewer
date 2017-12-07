@@ -33,6 +33,11 @@ const mutations = {
       return;
     }
     state.paperItems.splice(index, 1);
+  },
+
+  redirectToShowPDF(state, pdfUrl) {
+    state.temp = pdfUrl;
+    console.log(state.temp);
   }
 };
 
