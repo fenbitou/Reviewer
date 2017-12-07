@@ -27,5 +27,5 @@
 
 -----
 ### Attention
-1. ![Hypothesis 用户文档](https://h.readthedocs.io/en/latest/api/using-oauth/#registering-an-oauth-client)
+1. [Hypothesis 用户文档](https://h.readthedocs.io/en/latest/api/using-oauth/#registering-an-oauth-client)
 在本地测试调试通过后与前端集成。 **现在只解决这一个问题** 不要管页面。
