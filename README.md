@@ -27,43 +27,5 @@
 
 -----
 ### Attention
-1. [**hypothes.is API文档**](https://h.readthedocs.io/en/latest/api/#)是符合RESTful接口规范的文档，后端组成员需要自行了解RESTful的相关知识。本项目中的RESTful文件夹是慕课网上相关课程的源代码，有兴趣的可以自己去看。难度比较大。
-
-2. 后端组成员需要约定统一的开发平台和Java版本。
-
-3. hypothes.is API的运行DEMO的用户登陆注册功能是来自于hypothes自己的服务，在我们的评阅系统中不能使用第三方的服务，因此要将用户登陆注册模块集成在系统中。但由于Reviewer不关注用户模块，因此短期的开发我们不关注用户数据库，测试依旧利用DEMO中提供的第三方的服务。
-
-4. 本仓库的默认分支已经切换至`dev`分支下，向远端仓库推送内容时需要关注自己所处的分支，**切记不要向`master`分支推送**。在提交文件夹的时候**切勿覆盖别人已提交的内容，务必先 `git pull` ，再push。**。  
-
-----
-### 短期任务
-**预计完成时间，3周**
-1. 将[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)仓库clone到本地后，在localhost运行起来，观察到该DEMO调用的js文件与调用api接口来自于下图所示，这会严重影响网站访问速度。
-![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s1.jpg)
-![Alt text](https://github.com/fenbitou/Reviewer/raw/dev/picture/s2.jpg)
-
-    将相应的js文件或api接口下载下来集成到本地，并替换DEMO相应的调用位置。  
-
-
-2. 利用MySQL创建基础的用户以及PDF表。具体内容见
->   PDF库   
-    PDF-ID（主键） 、PDF标题 、USER-ID 、 PDFauthority、PDF内容     
-
-    需要自行下载几篇英文论文PDF存入到数据库中，本分支下有一个`test.pdf`可以用来测试。   
-
-3. 在dev分支下有`dev`文件夹，这是显示用户PDF列表的简单DEMO。下面是表格的数据接口：
-    ```
-    {
-        number: 1,
-        pdfTitle: "Quantum teleportation of multiple degrees of freedom in a single photon",
-        pdfAuthority: "私有",
-        pdfURL: "---------跳转URL----------"
-    },
-    ```
-    从数据库中取出相应的数据并显示在表格中，`number`字段无需传入。现在暂时不要求完全遵守restful API接口规范（后期仍然要完成），只需要取出相应的值，并且**点击跳转URL后能够跳转至PDF标注界面**。    
-
-4. dev分支下现在并没有[PDF.js + Hypothes - GITHUB](https://github.com/hypothesis/pdf.js-hypothes.is)的文件夹，请自行clone完成`要求1`后再提交至`dev`分支。
-
-5. MySQL版本，数据库测试数据内容务必统一，该任务只需要完成一份，请自行协商分工。    
-
-6. 测试用的DEMO表格的数据在 `/ReviewerDev/src/components/ShowPublic.vue`中，可以clone在本地后再进行测试。
+1. ![Hypothesis 用户文档](https://h.readthedocs.io/en/latest/api/using-oauth/#registering-an-oauth-client)
+在本地测试调试通过后与前端集成。 **现在只解决这一个问题** 不要管页面。
