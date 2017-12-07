@@ -18,15 +18,28 @@
       </el-table-column>
       <el-table-column  prop="paper_title"  label="论文名称" >
       </el-table-column>
-      <el-table-column  prop="paper_author" label="论文作者" >
+      <el-table-column  prop="paper_author" label="论文作者" width="300">
       </el-table-column>
-      <el-table-column  label="操作">
+      <el-table-column  label="操作" width="200" >
         <template slot-scope="scope">
           <el-button size="mini" type="default" @click="showPdf(scope.$index)">查看详情</el-button>
           <el-button size="mini" type="danger" @click="deletePdf(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- <div class="block">
+      <span class="demonstration">直接前往</span>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage3"
+        :page-size="100"
+        layout="prev, pager, next, jumper"
+        :total="1000">
+      </el-pagination>
+    </div> -->
+
   </div>
    
 </template>
@@ -42,20 +55,22 @@ export default {
 
   methods: {
     deletePdf(index) {
-      this.$confirm('此操作将永久删除该论文, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        let items = store.getters.paperItems;
-        store.dispatch("DeletePaperItem", items[index]._id);
-        this.$message({ type: 'success', message: '删除成功!' });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
-      });
+      this.$confirm("此操作将永久删除该论文, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let items = store.getters.paperItems;
+          store.dispatch("DeletePaperItem", items[index]._id);
+          this.$message({ type: "success", message: "删除成功!" });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     },
     showPdf(index) {
       let items = store.getters.paperItems;
@@ -71,7 +86,7 @@ export default {
       let items = store.getters.paperItems;
       let i = 0;
       items.forEach((item)=>{
-        let obj ={};
+        let obj = [];
         obj.paper_title = item.paper_title;
         obj.paper_author = item.paper_author;
         data[i++] = obj;
@@ -79,7 +94,7 @@ export default {
       return data;
     }
   },
-  
+
   mounted() {
     store.dispatch("InitPaperItem").then(function(data) {
       console.log(data);

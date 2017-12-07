@@ -1,6 +1,6 @@
 <template>
 
-  <el-card style="width: 50%">
+  <el-card style="width: 100%">
     <el-form ref="form" :model="addform" label-width="80px">
       <el-form-item label="论文标题">
         <el-input v-model="addform.title"></el-input>
@@ -54,9 +54,8 @@ export default {
           paper_author:this.addform.author,
           paper_link:this.addform.link })
         )
-
-      this.$message.success({message:'添加论文成功!'})
       this.form = "";
+      this.$message.success({message:'添加论文成功!'})   
     }
   }
 };

@@ -16,7 +16,6 @@ export default {
 
   methods: {
     getParams () {
-      console.log('showshowshow' + store.getters.temp);
       return store.getters.temp;
     }
   }

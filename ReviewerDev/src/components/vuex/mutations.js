@@ -37,7 +37,6 @@ const mutations = {
 
   redirectToShowPDF(state, pdfUrl) {
     state.temp = pdfUrl;
-    console.log(state.temp);
   }
 };
 

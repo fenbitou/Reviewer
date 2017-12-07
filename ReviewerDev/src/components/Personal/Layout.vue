@@ -11,7 +11,7 @@
           <el-menu mode="horizontal" background-color="#1976D2" text-color="#ffffff" active-text-color="#ffffff" :router="true">
            
             <el-submenu index="">
-              <template slot="title"><img src="../../assets/avatar.png" style="width:30px;"> Administrator</template>
+              <template slot="title"><img src="../../assets/avatar.png" style="width:30px;">Administrator</template>
               <el-menu-item index=""><i class="fa fa-fw fa-sign-out"></i>安全退出</el-menu-item>
             </el-submenu>
 
