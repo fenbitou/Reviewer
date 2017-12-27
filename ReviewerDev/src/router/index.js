@@ -8,6 +8,10 @@ import ShowPrivate from '@/components/Personal/ShowPrivate'
 import ShowPublic from '@/components/Personal/ShowPublic'
 import ShowPDF from '@/components/Personal/ShowPDF'
 import AddPaper from '@/components/Personal/AddPaper'
+import MyPaper1 from '@/components/Personal/MyPaper1'
+import MyPaper2 from '@/components/Personal/MyPaper2'
+import MyPaper3 from '@/components/Personal/MyPaper3'
+import EditPaper from '@/components/Personal/EditPaper'
 
 Vue.use(Router)
 
@@ -33,28 +37,46 @@ export default new Router({
       component: ShowPDF
     },
     {
-      path: '/public',
+      path: '/layout',
+      name: 'Layout',
       component: Layout,
-      children: [{
-        path: '/',
-        component: ShowPublic
-      }]
-    },
-    {
-      path: '/private',
-      component: Layout,
-      children: [{
-        path: '/',
-        component: ShowPrivate
-      }]
-    },
-    {
-      path: '/addpaper',
-      component: Layout,
-      children: [{
-        path: '/',
-        component: AddPaper
-      }]
+      children: [
+        {
+          path: '/public',
+          name: 'PublicPDF',
+          component: ShowPublic
+        },
+        {
+          path: '/private',
+          name: 'PrivatePDF',
+          component: ShowPrivate
+        },
+        {
+          path: '/addpaper',
+          name: 'AddPaper',
+          component: AddPaper
+        },
+        {
+          path:'/mypaper_init',
+          name:'MyPaper1',
+          component: MyPaper1
+        },
+        {
+          path:'/mypaper_commit',
+          name:'MyPaper2',
+          component: MyPaper2
+        },
+        {
+          path:'/mypaper_final',
+          name:'MyPaper3',
+          component: MyPaper3
+        },
+        {
+          path:'/edit',
+          name:'EditPaper',
+          component: EditPaper
+        }
+      ]
     }
   ]
 })
