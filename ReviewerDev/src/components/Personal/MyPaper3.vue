@@ -1,22 +1,26 @@
 <template>
   <div>
     <el-steps :active="3" simple class="paper-steps" >
-      <el-step title="已创建，尚未提交评审" icon="el-icon-edit"></el-step>
-      <el-step title="正在评审，尚未定稿" icon="el-icon-loading"></el-step>
+      <el-step title="尚未提交评审" icon="el-icon-edit"></el-step>
+      <el-step title="正在评审" icon="el-icon-loading"></el-step>
       <el-step title="已定稿" icon="el-icon-success"></el-step>
     </el-steps>
 
-    <el-card class="box-card" v-for="item in items" :key="item._id">
-      <div slot="header" class="clearfix">
-        <span>{{item.paper_title}}</span><br/>
-        <div class="time">{{ currentDate | formatDate }}</div>
-        <el-button class="card-button" type="text" @click="showPaper(item._id)">查看论文</el-button>
-      </div>
-      <div class="change-log">
-        老师的定稿意见
-      </div>
-    </el-card>
-
+    <el-row :gutter="18">
+      <el-col :sm="12" :lg="8"  v-for="item in items" :key="item._id">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{item.paper_title}}</span><br/>
+            <div class="time">{{ currentDate | formatDate }}</div>
+            <el-button class="card-button" type="text" @click="showPaper(item.paper_link)">查看论文</el-button>
+          </div>
+          <div class="change-log">
+            老师的定稿意见
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+ 
   </div>
 
 </template>
@@ -33,7 +37,12 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    showPaper(PDFUrl) {
+      store.commit("redirectToShowPDF", PDFUrl);
+      this.$router.push({ path: "/showpdf" });
+    }
+  },
 
   computed: {
     items: function() {
@@ -52,7 +61,7 @@ export default {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm");
     }
-  },
+  }
 };
 </script>
 

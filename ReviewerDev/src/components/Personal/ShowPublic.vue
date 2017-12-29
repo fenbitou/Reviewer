@@ -18,11 +18,11 @@
       </el-table-column>
       <el-table-column  prop="paper_title"  label="论文名称" >
       </el-table-column>
-      <el-table-column  prop="paper_author" label="论文作者" width="300">
+      <el-table-column  prop="paper_author" label="论文作者">
       </el-table-column>
-      <el-table-column  label="操作" width="200" >
+      <el-table-column  label="操作" width="200">
         <template slot-scope="scope">
-          <el-button size="mini" type="default" @click="showPdf(scope.$index)">查看详情</el-button>
+          <el-button size="mini" type="default" @click="showPaper(scope.$index)">查看详情</el-button>
           <el-button size="mini" type="danger" @click="deletePdf(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
@@ -60,19 +60,20 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          let items = store.getters.paperItems;
-          store.dispatch("DeletePaperItem", items[index]._id);
-          this.$message({ type: "success", message: "删除成功!" });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+      .then(() => {
+        let items = store.getters.paperItems;
+        store.dispatch("DeletePaperItem", items[index]._id);
+        this.$message({ type: "success", message: "删除成功!" });
+      })
+      .catch(() => {
+        this.$message({
+          type: "info",
+          message: "已取消删除"
         });
+      });
     },
-    showPdf(index) {
+
+    showPaper(index) {
       let items = store.getters.paperItems;
       let PDFUrl = items[index].paper_link;
       store.commit("redirectToShowPDF", PDFUrl);
