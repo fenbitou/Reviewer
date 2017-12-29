@@ -8,11 +8,12 @@
 
     <el-card class="box-card" v-for="item in items" :key="item._id">
       <div slot="header" class="clearfix">
-        <span>{{item.paper_title}}</span>
-        <!-- <el-button class="card-button" type="text">修改论文</el-button> -->
+        <span>{{item.paper_title}}</span><br/>
+        <div class="time">{{ currentDate | formatDate }}</div>
+        <el-button class="card-button" type="text" @click="editPaper(item._id)">修改论文</el-button>
       </div>
       <div class="change-log">
-        最后一次修改的内容以及修改时间
+        最后一次修改的内容
       </div>
       <div class="last-annotation">
         老师最后一次的评审内容
@@ -25,17 +26,20 @@
 
 <script>
 import store from "../vuex/store.js";
+import { formatDate } from "../../js/date.js";
 
 export default {
   name: "MyPaper2",
   data() {
-    return {  };
+    return {
+      currentDate: new Date()
+    };
   },
 
   methods: {},
 
   computed: {
-    items: function(){
+    items: function() {
       return store.getters.paperItems;
     }
   },
@@ -44,6 +48,13 @@ export default {
     store.dispatch("InitPaperItem").then(function(data) {
       console.log(data);
     });
+  },
+
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
+    }
   }
 };
 </script>

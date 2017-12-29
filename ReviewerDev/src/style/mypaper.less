@@ -2,13 +2,18 @@
   background: #EEF5F9;
 }
 
-.clearfix:before,
-.clearfix:after {
+.clearfix:before, .clearfix:after {
   display: table;
   content: "";
 }
+
 .clearfix:after {
   clear: both
+}
+
+.button {
+  padding: 0;
+  float: right;
 }
 
 .box-card {
@@ -18,22 +23,22 @@
   float: left;
 }
 
-.card-show :hover {
-  display: block;
-  // transform:scale(1.03);
-  // -webkit-transform: scale(1.03); 
-}
-
 .card-button {
   float: right; 
-  padding: 2px 0;
+}
+
+.time {
+  font-size: 14px;
+  color: #999;
+  float: left;
+  margin-top: 10px;
 }
 
 .change-log {
-  padding-bottom: 3px;
+  padding-bottom: 10px;
 }
 
 .last-annotation {
   border-top: 1px solid #e6ebf5;
-  padding : 3px 0;
+  padding-top : 10px;
 }
