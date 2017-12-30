@@ -13,7 +13,7 @@
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
             <div class="time">{{ currentDate | formatDate }}</div>
-            <el-button class="card-button" type="text" @click="editPaper(item._id)">修改论文</el-button>
+            <el-button class="card-button" type="text" @click="editPaper(item)">修改论文</el-button>
           </div>
           <div class="change-log">
             最后一次修改的内容
@@ -51,8 +51,9 @@ export default {
   },
 
   methods: {
-    editPaper(index) {
-      console.log(index);
+    editPaper(item) {
+      store.commit("saveTempValue", item.paper_title);
+      this.$router.push({ path: "/edit" });
     },
 
     addPaper(){

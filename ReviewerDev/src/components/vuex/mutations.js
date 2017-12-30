@@ -1,6 +1,6 @@
 function getIndexbyId(state, id) {
-  for (var i in state.paperItems) {
-    var item = state.paperItems[i];
+  for (let i in state.paperItems) {
+    let item = state.paperItems[i];
     if (item._id === id) {
       return i;
     }
@@ -28,16 +28,17 @@ const mutations = {
   },
 
   deletePaperItem(state, id) {
-    var index = getIndexbyId(state, id);
+    let index = getIndexbyId(state, id);
     if (index === -1) {
       return;
     }
     state.paperItems.splice(index, 1);
   },
 
-  redirectToShowPDF(state, pdfUrl) {
-    state.temp = pdfUrl;
+  saveTempValue(state, tempValue) {
+    state.temp = tempValue;
   }
+
 };
 
 export default mutations

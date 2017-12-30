@@ -7,7 +7,7 @@
           <el-input placeholder="关键词" suffix-icon="el-icon-search"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="showPdf">搜索</el-button>
+          <el-button type="primary" @click="">搜索</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -76,7 +76,7 @@ export default {
     showPaper(index) {
       let items = store.getters.paperItems;
       let PDFUrl = items[index].paper_link;
-      store.commit("redirectToShowPDF", PDFUrl);
+      store.commit("saveTempValue", PDFUrl);
       this.$router.push({ path: "/showpdf" });
     }
   },

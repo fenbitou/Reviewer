@@ -39,7 +39,7 @@ export default {
 
   methods: {
     showPaper(PDFUrl) {
-      store.commit("redirectToShowPDF", PDFUrl);
+      store.commit("saveTempValue", PDFUrl);
       this.$router.push({ path: "/showpdf" });
     }
   },

@@ -3,12 +3,12 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>个人论文</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/mypaper_init' }">未提交评审的论文</el-breadcrumb-item>
-      <el-breadcrumb-item>文章标题</el-breadcrumb-item>
+      <el-breadcrumb-item>{{paperTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="editor">
       <quill-editor ref="myTextEditor" v-model="content" :config="editorOption" style="height:680px"></quill-editor>
     </el-card>
-    <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
+    <el-button class="editor-btn" type="primary" @click="submit">保存修改</el-button>
   </div>
 </template>
 
@@ -59,6 +59,9 @@ export default {
   computed: {
     editor() {
       return this.$refs.myTextEditor.quillEditor;
+    },
+    paperTitle() {
+      return store.getters.temp;
     }
   }
 };
