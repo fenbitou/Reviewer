@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-steps :active="2" simple class="paper-steps" >
-      <el-step title="尚未提交评审" icon="el-icon-edit"></el-step>
+      <el-step title="未提交评审" icon="el-icon-edit"></el-step>
       <el-step title="正在评审" icon="el-icon-loading"></el-step>
       <el-step title="已定稿" icon="el-icon-success"></el-step>
     </el-steps>
@@ -12,7 +12,8 @@
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
             <div class="time">{{ item.create_Date | formatDate }}</div>
-            <el-button class="card-button" type="text" @click="editPaper(item._id)">修改论文</el-button>
+            <el-button class="card-button" type="text" @click="editPaper(item)">修改论文</el-button>
+            <el-button class="card-button" type="text" @click="showComments(item)">查看评审意见</el-button>
           </div>
           <div class="change-log">
             老师的评审内容
@@ -37,7 +38,16 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    editPaper(item) {
+      store.commit("saveTempValue", item);
+      this.$router.push({ path: "/edit_commit" });
+    },
+    showComments(item) {
+      store.commit("saveTempValue", item);
+      this.$router.push({ path: "/paper_comment" });
+    }
+  },
 
   computed: {
     items: function() {
@@ -53,7 +63,7 @@ export default {
   },
 
   mounted() {
-    store.dispatch("FindStatusItem", (["admin", "commit"]));
+    store.dispatch("FindStatusItem", ["admin", "commit"]);
   }
 };
 </script>

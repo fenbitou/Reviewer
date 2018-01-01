@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>个人论文</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mypaper_init' }">未提交评审的论文</el-breadcrumb-item>
+      <el-breadcrumb-item>我的论文</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mypaper_commit' }">正在评审的论文</el-breadcrumb-item>
       <el-breadcrumb-item>{{paperTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="editor">
@@ -21,7 +21,7 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 export default {
-  name: "EditPaper",
+  name: "EditPaper1",
   data() {
     return {
       content: "<h3>这是测试数据</h3>",
@@ -61,7 +61,7 @@ export default {
       return this.$refs.myTextEditor.quillEditor;
     },
     paperTitle() {
-      return store.getters.temp;
+      return store.getters.temp.paper_title;
     }
   }
 };

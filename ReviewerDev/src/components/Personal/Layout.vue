@@ -11,7 +11,9 @@
           <el-menu mode="horizontal" background-color="#1976D2" text-color="#ffffff" active-text-color="#ffffff" :router="true">
            
             <el-submenu index="">
-              <template slot="title"><img src="../../assets/avatar.png" style="width:30px;">&nbsp;Administrator</template>
+              <template slot="title">
+                <img src="../../assets/avatar.png" style="width:30px;">&nbsp;Administrator
+              </template>
               <el-menu-item index=""><i class="fa fa-fw fa-sign-out"></i>安全退出</el-menu-item>
             </el-submenu>
 
@@ -29,25 +31,25 @@
               <span slot="title">公开论文</span>
             </el-menu-item>
 
-            <el-menu-item index="">
-              <i class="fa fa-fw fa-fire"></i>
-              <span slot="title">热门批注</span>
-            </el-menu-item>
-
             <el-menu-item-group>
-              <template slot="title">我的收藏</template>
-              <el-menu-item index="/private">
-                <i class="fa fa-fw fa-user"></i>
-                <span>论文列表</span>
+              <template slot="title">个人中心</template>
+              <el-menu-item index="">
+                <i class="fa fa-fw fa-info-circle"></i>
+                <span slot="title">通知</span>
+                <el-badge class="badge-mark" :value="12" />
               </el-menu-item>
-              <el-menu-item index="/myannotation">
+              <el-menu-item index="/private">
+                <i class="fa fa-fw fa-star"></i>
+                <span>收藏论文</span>
+              </el-menu-item>
+              <el-menu-item index="">
                 <i class="fa fa-fw fa-quote-left"></i>
                 <span>我的批注</span>
               </el-menu-item>
             </el-menu-item-group>
 
             <el-menu-item-group>
-              <template slot="title">个人论文</template>
+              <template slot="title">我的论文</template>
               <el-menu-item index="/mypaper_init">
                 <i class="fa fa-fw fa-pencil-square-o"></i>
                 <span>未评审</span>

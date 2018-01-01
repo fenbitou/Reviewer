@@ -11,7 +11,9 @@ import AddPaper from '@/components/Personal/AddPaper'
 import MyPaper1 from '@/components/Personal/MyPaper1'
 import MyPaper2 from '@/components/Personal/MyPaper2'
 import MyPaper3 from '@/components/Personal/MyPaper3'
-import EditPaper from '@/components/Personal/EditPaper'
+import EditPaper1 from '@/components/Personal/EditPaper1'
+import EditPaper2 from '@/components/Personal/EditPaper2'
+import PaperComment from '@/components/Personal/PaperComment'
 
 Vue.use(Router)
 
@@ -72,9 +74,19 @@ export default new Router({
           component: MyPaper3
         },
         {
-          path:'/edit',
-          name:'EditPaper',
-          component: EditPaper
+          path:'/edit_init',
+          name:'EditPaper1',
+          component: EditPaper1
+        },
+        {
+          path:'/edit_commit',
+          name:'EditPaper2',
+          component: EditPaper2
+        },
+        {
+          path:'/paper_comment',
+          name:'PaperComment',
+          component: PaperComment
         }
       ]
     }

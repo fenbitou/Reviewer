@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-steps :active="3" simple class="paper-steps" >
-      <el-step title="尚未提交评审" icon="el-icon-edit"></el-step>
+      <el-step title="未提交评审" icon="el-icon-edit"></el-step>
       <el-step title="正在评审" icon="el-icon-loading"></el-step>
       <el-step title="已定稿" icon="el-icon-success"></el-step>
     </el-steps>
