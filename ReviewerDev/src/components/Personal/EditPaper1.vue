@@ -8,7 +8,7 @@
     <el-card class="editor">
       <quill-editor ref="myTextEditor" v-model="content" :config="editorOption" style="height:680px"></quill-editor>
     </el-card>
-    <el-button class="editor-btn" type="primary" @click="submit">保存修改</el-button>
+    <el-button type="primary" class="btn-editor" @click="submit">保存修改</el-button>
   </div>
 </template>
 
@@ -44,8 +44,10 @@ export default {
         type: "warning"
       })
       .then(() => {
-        console.log(111321);
-        this.$message({ type: "success", message: "成功保存!" });
+        this.$message({          
+          type: "success", 
+          message: "保存成功!"  
+        });
       })
       .catch(() => {
         this.$message({
@@ -67,16 +69,6 @@ export default {
 };
 </script>
 
-<style>
-.editor {
-  height: 760px;
-  width: 100%;
-  margin-top:10px;
-}
-
-.editor-btn {
-  display: block;
-  width: 200px;
-  margin-top:20px;
-}
+<style rel="stylesheet/less" lang="less" scoped>
+@import "../../style/mypaper.less";
 </style>

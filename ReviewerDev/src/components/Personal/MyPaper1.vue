@@ -8,12 +8,11 @@
 
     <el-row :gutter="18">
       <el-col :sm="12" :lg="8"  v-for="item in items" :key="item._id">
-
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
             <div class="time">{{ item.create_Date | formatDate }}</div>
-            <el-button class="card-button" type="text" @click="editPaper(item)">修改论文</el-button>
+            <el-button class="btn-card" type="text" @click="editPaper(item)">修改论文</el-button>
           </div>
           <div class="change-log">
             最后一次修改的内容
