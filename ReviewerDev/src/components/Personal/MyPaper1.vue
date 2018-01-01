@@ -12,7 +12,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
-            <div class="time">{{ currentDate | formatDate }}</div>
+            <div class="time">{{ item.create_Date | formatDate }}</div>
             <el-button class="card-button" type="text" @click="editPaper(item)">修改论文</el-button>
           </div>
           <div class="change-log">
@@ -45,9 +45,7 @@ import { formatDate } from "../../js/date.js";
 export default {
   name: "MyPaper1",
   data() {
-    return {
-      currentDate: new Date()
-    };
+    return {};
   },
 
   methods: {
@@ -56,9 +54,11 @@ export default {
       this.$router.push({ path: "/edit" });
     },
 
-    addPaper(){
+    addPaper() {
       this.$router.push({ path: "/AddPaper" });
-    }
+    },
+
+    getItemTime(time) {}
   },
 
   computed: {
@@ -75,9 +75,7 @@ export default {
   },
 
   mounted() {
-    store.dispatch("InitPaperItem").then(function(data) {
-      console.log(data);
-    });
+    store.dispatch("FindStatusItem", (["admin", "init"]));
   }
 };
 </script>

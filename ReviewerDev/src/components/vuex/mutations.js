@@ -20,6 +20,10 @@ const mutations = {
     state.paperItems = paperItems
   },
 
+  findStatusItem(state, paperItems) { 
+    state.paperItems = paperItems
+  },
+
   addPaperItem(state, item) {
     if (typeof (item) === 'string') {
       item = JSON.parse(item);

@@ -6,9 +6,17 @@ var PaperSchema = new Schema({
     paper_title   :  String,
     paper_author  :  String,
     paper_link    :  String,
-    paper_status  :  String,
     paper_isPublic:  Boolean,
-    paper_owner_id:  String
+    paper_status  :  String,
+    paper_owner_id:  String,
+    update_Date:{
+        type: Date,
+        default: Date.now
+    },
+    create_Date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 // add schema to model

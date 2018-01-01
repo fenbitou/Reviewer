@@ -8,7 +8,21 @@ const actions = {
       axios.get(API_PAPER_ROUTER)
         .then(function (response) {
           commit('initPaperItems', response.data);
-          console.log(response);
+          on_result({ result: true, message: response.data });
+        })
+        .catch(function (error) {
+          console.log('error');
+          on_result({ result: false, message: error });
+        });
+    });
+  },
+
+  FindStatusItem({ commit }, user_info ) {
+    return new Promise((on_result) => {
+      console.log('actions FindStatusItem : ' + user_info[0] + "  " + user_info[1]);
+      axios.get(API_PAPER_ROUTER + "/" + user_info[0] + "/" + user_info[1])
+        .then(function (response) {
+          commit('findStatusItem', response.data);
           on_result({ result: true, message: response.data });
         })
         .catch(function (error) {

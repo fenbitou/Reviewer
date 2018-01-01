@@ -69,17 +69,18 @@ export default {
       this.$router.push({ path: "/public" });
     },
     onSubmit() {
-      if(store.dispatch("AddPaperItem", 
-          { paper_title: this.addform.title, 
-            paper_author:this.addform.author,
-            paper_link:this.addform.link,
-            paper_status:this.addform.status,
-            paper_isPublic:(this.addform.status==="true")?true:false,
-            paper_owner_id:this.addform.owner
-          })
-        )
-      this.form = "";
-      this.$message.success({message:'添加论文成功!'})   
+      if (
+        store.dispatch("AddPaperItem", {
+          paper_title: this.addform.title,
+          paper_author: this.addform.author,
+          paper_link: this.addform.link,
+          paper_status: this.addform.status,
+          paper_isPublic: this.addform.status === "true" ? true : false,
+          paper_owner_id: this.addform.owner
+        })
+      )
+        this.form = "";
+      this.$message.success({ message: "添加论文成功!" });
     }
   }
 };

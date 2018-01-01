@@ -24,7 +24,7 @@ export default {
   name: "EditPaper",
   data() {
     return {
-      content: "<h3>这是测试表格数据</h3>",
+      content: "<h3>这是测试数据</h3>",
       editorOption: {}
     };
   },
