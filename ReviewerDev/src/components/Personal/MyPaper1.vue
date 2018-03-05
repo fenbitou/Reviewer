@@ -11,23 +11,10 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
-            <div class="time">{{ item.create_Date | formatDate }}</div>
+            <div class="time">最后修改时间：{{ item.update_Date | formatDate }}</div>
             <el-button class="btn-card" type="text" @click="editPaper(item)">修改论文</el-button>
           </div>
-          <div class="change-log">
-            最后一次修改的内容
-          </div>
-        </el-card>
-      </el-col>
-
-      <el-col :sm="12" :lg="8">
-        <el-card class="box-card" @click="addPaper()">
-          <div slot="header" class="clearfix icon-addPaper">
-            <i class="el-icon-circle-plus-outline"></i>
-          </div>
-          <div>
-            <p style="text-align:center; display:block;">创建一篇新论文</p>
-          </div>
+          <div class="change-log" v-html="handle(item)"></div>
         </el-card>
       </el-col>
 
@@ -52,9 +39,13 @@ export default {
       store.commit("saveTempValue", item);
       this.$router.push({ path: "/edit_init" });
     },
-
-    addPaper() {
-      this.$router.push({ path: "/AddPaper" });
+    handle(item) {
+      if (item.update_paper_sum == 0) {
+        return "<div style=\"margin-top:-20px\"><h3>还未开始撰写论文</h3></div>";
+      } else {
+        let sum = item.update_paper_sum;
+        return "<div style=\"margin-top:-20px\">"+item.paper_content[sum-1].current_content+"</div>";
+      }
     }
   },
 
@@ -72,7 +63,7 @@ export default {
   },
 
   mounted() {
-    store.dispatch("FindStatusItem", (["admin", "init"]));
+    store.dispatch("FindStatusItem", ["admin", "init"]);
   }
 };
 </script>

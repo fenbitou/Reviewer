@@ -3,11 +3,11 @@
     <!-- search-bar -->
     <div>
       <el-form :inline="true">
-        <el-form-item label="公开搜索">
-          <el-input placeholder="关键词" suffix-icon="el-icon-search"></el-input>
+        <el-form-item>
+          <el-input v-model="input" placeholder="标题关键字" suffix-icon="el-icon-search"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="handleSearch()">搜索</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -18,7 +18,7 @@
       </el-table-column>
       <el-table-column  prop="paper_title"  label="论文名称" >
       </el-table-column>
-      <el-table-column  prop="paper_author" label="论文作者">
+      <el-table-column  prop="paper_author" label="论文作者" width="400">
       </el-table-column>
       <el-table-column  label="操作" width="200">
         <template slot-scope="scope">
@@ -28,17 +28,18 @@
       </el-table-column>
     </el-table>
 
-    <!-- <div class="block">
-      <span class="demonstration">直接前往</span>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage3"
-        :page-size="100"
-        layout="prev, pager, next, jumper"
-        :total="1000">
-      </el-pagination>
-    </div> -->
+    <div style="width:280px; margin:20px auto 0 auto;">
+      <div class="block">
+        <span class="demonstration"></span>
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :page-size = "10"
+          layout="prev, pager, next"
+          :total="paperSum">
+        </el-pagination>
+      </div>
+    </div>
+
 
   </div>
    
@@ -50,7 +51,10 @@ import store from "../vuex/store.js";
 export default {
   name: "PublicPDF",
   data() {
-    return {};
+    return {
+      currentPageNum: 1,
+      input: ""
+    };
   },
 
   methods: {
@@ -60,17 +64,23 @@ export default {
         confirmButtonText: "确定",
         type: "warning"
       })
-      .then(() => {
-        let items = store.getters.paperItems;
-        store.dispatch("DeletePaperItem", items[index]._id);
-        this.$message({ type: "success", message: "删除成功!" });
-      })
-      .catch(() => {
-        this.$message({
-          type: "info",
-          message: "已取消删除"
+        .then(() => {
+          let items = store.getters.paperItems;
+          store.dispatch("DeletePaperItem", items[index]._id);
+          this.$message({ type: "success", message: "删除成功!" });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
         });
-      });
+    },
+
+    handleSearch() {
+      let words = this.input;
+      store.dispatch("GetPaperAfterSearch", words);
+      store.dispatch("GetPaperSumAfterSearch", words);
     },
 
     showPaper(index) {
@@ -78,26 +88,41 @@ export default {
       let PDFUrl = items[index].paper_link;
       store.commit("saveTempValue", PDFUrl);
       this.$router.push({ path: "/showpdf" });
+    },
+
+    handleCurrentChange(pageNumber) {
+      let item = {
+        words: this.input,
+        number: pageNumber
+      };
+      store.dispatch("GetPagedPaper", item);
+      this.currentPageNum = pageNumber;
+      this.tableData = store.getters.paperItems;
     }
   },
 
   computed: {
+    paperSum: function() {
+      return parseInt(store.getters.temp);
+    },
     tableData: function() {
       let data = [];
       let items = store.getters.paperItems;
       let i = 0;
-      items.forEach((item)=>{
+      items.forEach(item => {
         let obj = [];
         obj.paper_title = item.paper_title;
-        obj.paper_author = item.paper_author;
+        obj.paper_author = item.paper_author[0] + ", " + item.paper_author[1];
         data[i++] = obj;
-      })
+      });
       return data;
     }
   },
 
   mounted() {
-    store.dispatch("InitPaperItem");
+    // todo: 返回后不能记录当前的页码
+    store.dispatch("GetPagedPaper", 1);
+    store.dispatch("GetAllPaperSum");
   }
 };
 </script>

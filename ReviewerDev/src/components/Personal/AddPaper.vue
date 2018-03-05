@@ -5,9 +5,12 @@
       <el-form-item label="论文标题">
         <el-input v-model="addform.title"></el-input>
       </el-form-item>
+
       <el-form-item label="论文作者">
-        <el-input v-model="addform.author"></el-input>
+        <el-input v-model="addform.author1" style="display:inline-block; width:300px" placeholder="第一作者"></el-input>
+        <el-input v-model="addform.author2" style="display:inline-block; width:300px" placeholder="第二作者"></el-input>
       </el-form-item>
+
       <el-form-item label="论文链接">
         <el-input v-model="addform.link"></el-input>
       </el-form-item>
@@ -30,16 +33,16 @@
       </el-form-item>
       
       <el-form-item label="上传论文">
-        <el-upload  class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/">
+        <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/">
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
           <div class="el-upload__tip" slot="tip">只能上传PDF文件，且不超过16MB</div>
-        </el-upload>
+        </el-upload> 
       </el-form-item>
       
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button type="default" @click="gotoPublic">查看论文</el-button>
+        <el-button type="primary" @click="onSubmit">立即添加</el-button>
+        <el-button type="default" @click="gotoPublic">查看公开论文</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -69,14 +72,19 @@ export default {
       this.$router.push({ path: "/public" });
     },
     onSubmit() {
+      let currentDate = new Date();
       if (
         store.dispatch("AddPaperItem", {
           paper_title: this.addform.title,
-          paper_author: this.addform.author,
+          paper_author: [this.addform.author1, this.addform.author2],
           paper_link: this.addform.link,
           paper_status: this.addform.status,
           paper_isPublic: this.addform.status === "true" ? true : false,
-          paper_owner_id: this.addform.owner
+          paper_owner_id: this.addform.owner,
+          create_Date: currentDate,
+          update_Date: currentDate,
+          update_paper_sum: 0,
+          paper_content: []
         })
       )
         this.form = "";

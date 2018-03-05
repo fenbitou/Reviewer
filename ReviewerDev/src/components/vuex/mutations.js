@@ -20,8 +20,34 @@ const mutations = {
     state.paperItems = paperItems
   },
 
+  /*-------获取文章总数-------*/
+  getPaperSum(state, paperSum) {
+    state.temp = paperSum;
+  },
+
+  getPaperSumAfterSearch(state, paperSum) {
+    state.temp = paperSum;
+  },
+
+  /*-------获取文章-------*/
+  getPagedPaper(state, paperItems) {
+    state.paperItems = paperItems
+  },
+
+  getPaperAfterSearch(state, paperItems) {
+    state.paperItems = paperItems
+  },
+
   findStatusItem(state, paperItems) { 
     state.paperItems = paperItems
+  },
+
+  updatePaperContent(state, paperItems) { 
+    state.temp = paperItems
+  },
+  
+  updatePaperStatus(state, paperItems) { 
+    state.temp = paperItems
   },
 
   addPaperItem(state, item) {

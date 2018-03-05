@@ -11,7 +11,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
-            <div class="time">{{ item.create_Date | formatDate }}</div>
+            <div class="time">最后评审时间：{{ item.update_Date | formatDate }}</div>
             <el-button class="btn-card" type="text" @click="editPaper(item)">修改论文</el-button>
             <el-button class="btn-card" type="text" @click="showComments(item)">查看评审意见</el-button>
           </div>

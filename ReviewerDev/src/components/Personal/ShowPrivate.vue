@@ -1,7 +1,7 @@
 <template>
 <div>
     <!-- search-bar -->
-    <div style = "margin-bottom : 10px;" >
+    <div style = "margin-bottom : 10px; display:none;" >
       <el-form :inline="true">
         <el-form-item label="搜索">
           <el-input placeholder="关键词" suffix-icon="el-icon-search"></el-input>
@@ -43,6 +43,11 @@ export default {
     search() {
       console.log('click search()');
     }
+  },
+
+  mounted() {
+    store.dispatch("GetPagedPaper",1);
+    store.dispatch("GetAllPaperSum");
   }
 };
 </script>

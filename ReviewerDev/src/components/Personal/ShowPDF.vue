@@ -1,6 +1,6 @@
 <template>
   <div style="height:100%">
-    <iframe :src='"/static/viewer/web/viewer.html?file=./testpdf/"+ getParams() +".pdf"' width="100%" height="100%" scrolling="no"></iframe>
+    <iframe :src='"/static/viewer/web/viewer.html?file=./testpdf/"+ pdfURL +".pdf"' width="100%" height="100%" scrolling="no"></iframe>
   </div>
 </template>
 
@@ -11,13 +11,8 @@ export default {
   name: "ShowPDF",
   data() {
     return {
+      pdfURL : store.getters.temp
     };
-  },
-
-  methods: {
-    getParams () {
-      return store.getters.temp;
-    }
   }
 };
 </script>

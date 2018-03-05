@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "element-ui": "^2.0.10",
+    "element-ui": "^2.2.1",
     "express": "^4.15.3",
     "font-awesome": "^4.7.0",
     "less": "^2.7.3",
