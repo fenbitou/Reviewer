@@ -9,11 +9,11 @@ var PaperSchema = new Schema({
     paper_isPublic: Boolean,
     paper_status: String,
     paper_owner_id: String,
-    update_Date: {
+    update_date: {
         type: Date,
         default: Date.now
     },
-    create_Date: {
+    create_date: {
         type: Date,
         default: Date.now
     },
@@ -23,6 +23,12 @@ var PaperSchema = new Schema({
             current_content: String,
             update_time: { type: Date, default: Date.now },
         }]
+    },
+    paper_comment: {
+        comment_content: String,
+        comment_time: { type: Date, default: Date.now },
+        comment_teacher_id: String,
+        comment_teacher_name: String
     }
 });
 

@@ -1,21 +1,64 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>我的论文</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mypaper_init' }">未提交评审的论文</el-breadcrumb-item>
-      <el-breadcrumb-item>{{item.paper_title}}</el-breadcrumb-item>
-    </el-breadcrumb>
-    <div class="editor">
-      <quill-editor ref="myTextEditor" :content="content" :options="editorOption" @change="onEditorChange($event)" style="height:720px; margin-top:15px;"></quill-editor>
+    <!-- header nav bar -->
+    <div class="paper_navbar">
+      <!-- paper progress breadcrumb -->
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>我的论文</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mypaper_init' }">未提交评审的论文</el-breadcrumb-item>
+        <el-breadcrumb-item>{{item.paper_title}}</el-breadcrumb-item>
+      </el-breadcrumb>
+
+      <!-- show history button -->
+      <el-dropdown v-if="isShowDropdown" @command="dropdownCommand" class="edit_dropdown">
+        <el-button type="primary" size="mini">
+          历史版本<i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-for="historyPaper in listItems" :key="historyPaper._id" :command="historyPaper._id">  {{historyPaper.update_time | formatDate_dropdown }}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
-    <el-button type="default" class="btn-editor" @click="save_change">保存修改</el-button>
-    <el-button type="primary" class="btn-editor" @click="submmit_comment">提交评审</el-button>
+
+    <!-- editor div -->
+    <div class="editor" >
+      <el-row :gutter="10" style="height:710px;">
+        
+      <!-- text-editor -->
+        <el-col :lg="editorWidth" :sm="editorWidth" style="height:100%">
+          <quill-editor id="editor" ref="myTextEditor" :content="hanleContent(item)" :options="editorOption" @change="onEditorChange($event)" style="height:100%"></quill-editor>
+        </el-col>
+
+        <!-- history paper -->
+        <el-col :lg="historyWidth" :sm="historyWidth" v-if="showHistory">
+          <el-card shadow="never">
+            <div slot="header" class="paper_card_header">
+                <div class="primary_time">
+                  {{ historyChangeTime | formatDate_card }}
+                </div>
+                <el-button icon="el-icon-close" type="text" @click="closeHistory" class="paper_card_close"></el-button>
+              </div>
+            <div id="history_content" class="paper_card_content" style="overflow:auto; height:670px;" v-html="historyContent"></div>
+          </el-card> 
+        </el-col>
+
+      </el-row>
+    </div>
+
+    <!-- handle buttons -->
+    <div>
+      <el-button type="primary" class="btn_editor" plain @click="save_change">保存修改</el-button>
+      <el-button type="success" class="btn_editor" plain @click="submmit_comment">提交评审</el-button>
+    </div>
+   
   </div>
 </template>
 
 <script>
 import store from "../vuex/store.js";
 import { quillEditor } from "vue-quill-editor";
+import { formatDate } from "../../js/date.js";
+import { scrollEditor } from "../../js/scroll.js";
 
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -26,10 +69,32 @@ export default {
   data() {
     return {
       editorOption: {
-        placeholder: "请开始撰写你的论文，完成后请点击保存修改"
+        placeholder: "请开始撰写你的论文，完成后请点击保存修改",
+        modules: {
+          toolbar: [
+            "bold",
+            "italic",
+            "blockquote",
+            { list: "ordered" },
+            { list: "bullet" },
+            "align",
+            "code-block",
+            { script: "sub" },
+            { script: "super" },
+            { header: [] },
+            { size: ["small", "normal", "large"] }
+          ]
+        }
       },
       item: store.getters.temp,
-      content: ""
+      listItems: store.getters.temp.paper_content.slice(0, -1).reverse(),
+      isShowDropdown:
+        store.getters.temp.paper_content.length > 1 ? true : false,
+      editorWidth: 24,
+      historyWidth: 0,
+      showHistory: false,
+      historyChangeTime: "",
+      historyContent: ""
     };
   },
 
@@ -41,6 +106,40 @@ export default {
     onEditorChange({ editor, html, text }) {
       this.content = html;
     },
+
+    hanleContent(item) {
+      return item.update_paper_sum == 0
+        ? ""
+        : item.paper_content[item.update_paper_sum - 1].current_content;
+    },
+
+    dropdownCommand(id) {
+      this.showHistory = true;
+      this.editorWidth = 12;
+      this.historyWidth = 12;
+      let historyItems = this.listItems;
+      let content = "";
+      let time = "";
+      historyItems.forEach(function(item) {
+        if (item._id === id) {
+          content = item.current_content;
+          time = item.update_time;
+        }
+      });
+      this.historyContent = content;
+      this.historyChangeTime = time;
+
+      // let src = document.getElementById("editor");
+      // let dest = document.getElementById("history_content");
+      // scrollEditor(src, dest);
+    },
+
+    closeHistory() {
+      this.showHistory = false;
+      this.editorWidth = 24;
+      this.historyWidth = 0;
+    },
+
     save_change() {
       this.$confirm("是否保存修改？", "提示", {
         confirmButtonText: "确定",
@@ -71,8 +170,8 @@ export default {
 
     submmit_comment() {
       this.$confirm(
-        "请确认已经保存了文章内容且文章已经全部完成，点击确定后将提交给老师评审。",
-        "提示",
+        "将文章提交老师评审，同时不再保留未提交阶段的历史记录",
+        "提交论文",
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -80,10 +179,15 @@ export default {
         }
       )
         .then(() => {
+          let num = this.item.update_paper_sum - 1;
+          let lasted_paper = this.item.paper_content[num];
+          let current_time = new Date();
           if (
             store.dispatch("UpdatePaperStatus", {
-              update_item_id: this.item._id,
-              update_status: "init"
+              id: this.item._id,
+              status: "init",
+              paper: lasted_paper,
+              time: current_time
             })
           ) {
             this.$message({
@@ -93,7 +197,8 @@ export default {
             this.$router.push({ path: "/mypaper_commit" });
           }
         })
-        .catch(() => {
+        .catch(e => {
+          console.log(e);
           this.$message({
             type: "info",
             message: "已取消提交"
@@ -102,17 +207,22 @@ export default {
     }
   },
 
+  filters: {
+    formatDate_card(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
+    },
+
+    formatDate_dropdown(time) {
+      let date = new Date(time);
+      return formatDate(date, "MM-dd hh:mm");
+    }
+  },
+
   computed: {
     editor: function() {
       return this.$refs.myTextEditor.quillEditor;
     }
-  },
-
-  mounted() {
-    this.content =
-      store.getters.temp.paper_content[
-        this.item.update_paper_sum - 1
-      ].current_content;
   }
 };
 </script>

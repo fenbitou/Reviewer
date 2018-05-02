@@ -33,7 +33,9 @@ export default {
     checkValidity() {
       let isValid = true;
       if (!this.username || !this.password) {
-        this.$message.error({ message: this.username ? "密码不能为空" : "用户名不能为空" });
+        this.$message.error({
+          message: this.username ? "密码不能为空" : "用户名不能为空"
+        });
         return false;
       }
 

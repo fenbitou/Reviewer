@@ -1,28 +1,30 @@
 <template>
   <div>
-    <el-steps :active="3" simple class="paper-steps" >
+    <!-- My paper status step -->
+    <el-steps :active="3" simple class="paper_steps" >
       <el-step title="未提交评审" icon="el-icon-edit"></el-step>
       <el-step title="正在评审" icon="el-icon-loading"></el-step>
       <el-step title="已定稿" icon="el-icon-success"></el-step>
     </el-steps>
 
+    <!-- Final paper cards -->
     <el-row :gutter="18">
       <el-col :sm="12" :lg="8"  v-for="item in items" :key="item._id">
-        <el-card class="box-card">
+        <el-card class="box_card" shadow="hover">
+          <!-- paper card header -->
           <div slot="header" class="clearfix">
             <span>{{item.paper_title}}</span><br/>
-            <div class="time">定稿时间：{{ item.create_Date | formatDate }}</div>
+            <div class="time">定稿时间：{{ item.update_date | formatDate }}</div>
             <el-button class="btn-card" type="text" @click="showPaper(item.paper_link)">查看论文</el-button>
           </div>
-          <div class="change-log">
-            老师的定稿意见
+          <!-- paper commit comment -->
+          <div class="paper_card_body">
+            [{{item.paper_comment.comment_teacher_name}}] {{item.paper_comment.comment_content}}
           </div>
         </el-card>
       </el-col>
     </el-row>
- 
   </div>
-
 </template>
 
 <script>
@@ -56,7 +58,7 @@ export default {
   },
 
   mounted() {
-    store.dispatch("FindStatusItem", ["admin", "final"]);
+    store.dispatch("FindStatusItem", { id: "admin", status: "final" });
   }
 };
 </script>

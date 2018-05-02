@@ -11,7 +11,7 @@ export default {
   name: "ShowPDF",
   data() {
     return {
-      pdfURL : store.getters.temp
+      pdfURL: store.getters.temp
     };
   }
 };

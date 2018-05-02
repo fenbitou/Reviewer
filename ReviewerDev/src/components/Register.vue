@@ -8,13 +8,13 @@
       <div class="register-form" @keyup.enter="doLogin">
         <p>系统注册</p>
         <label>
-          <input type="text" v-model="username" placeholder="用户名"></input>
+          <input type="text" v-model="username" placeholder="用户名"/>
         </label>
         <label>
-          <input type="password" v-model="password" placeholder="密码"></input>
+          <input type="password" v-model="password" placeholder="密码"/>
         </label>
         <label>
-          <input type="password" v-model="password" placeholder="确认密码"></input>
+          <input type="password" v-model="password" placeholder="确认密码"/>
         </label>
         <button @click="doLogin">返回登陆</button>
         <button @click="doRegister">注册</button>
@@ -36,7 +36,9 @@ export default {
     checkValidity() {
       let isValid = true;
       if (!this.username || !this.password) {
-        this.$message.error({ message: this.username ? "密码不能为空" : "用户名不能为空" });
+        this.$message.error({
+          message: this.username ? "密码不能为空" : "用户名不能为空"
+        });
         return false;
       }
 

@@ -1,3 +1,12 @@
+/**
+ * Convert a ISO standard time to a string
+ * 
+ * @export
+ * @param {ISO Time} date 
+ * @param {string} fmt 
+ * @returns {string} formatted date
+ * @author Chang
+ */
 export function formatDate(date, fmt) {
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));

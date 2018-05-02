@@ -1,53 +1,66 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>我的论文</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mypaper_commit' }">正在评审的论文</el-breadcrumb-item>
-      <el-breadcrumb-item>{{item.paper_title}}</el-breadcrumb-item>
-    </el-breadcrumb>
+    <!-- head navbar -->
+    <div class="paper_navbar">
+      <!-- paper progress breadcrumb -->
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>我的论文</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mypaper_commit' }">正在评审的论文</el-breadcrumb-item>
+        <el-breadcrumb-item>{{item.paper_title}}</el-breadcrumb-item>
+      </el-breadcrumb>
+      
+      <!-- show hostory button -->
+      <el-dropdown v-if="isShowDropdown" @command="dropdownCommand" class="edit_dropdown" >
+        <el-button type="primary" size="mini">
+          历史版本评阅意见<i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-for="historyPaper in listItems" :key="historyPaper._id" :command="historyPaper._id">{{historyPaper.update_time | formatDate_dropdown }}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
 
-    <el-row :gutter="18">
-      <el-col :lg="16">
-        <el-card class="editor" style="height:760px;">
-          <quill-editor ref="myTextEditor" v-model="content" :config="editorOption" style="height:693px; margin: -20px;"></quill-editor>
-        </el-card>
-      </el-col>
+      <!-- show comment button -->
+      <el-button v-show="!showComment" type="default" size="mini" class="edit_dropdown" @click="handleShowComment">
+        显示教师评阅意见
+      </el-button>
+    </div>
 
-      <el-col :lg="8">
-        <div class="editor_comment" v-show="showComment">
-          <el-card class="paper_comment">
-            <div slot="header" style="height:20px; margin-top: -12px;">
-              <div class="time2">
-                {{ item.create_Date | formatDate }}
-                <el-badge style="margin-left:8px;" :value="4" />
+    <div class="editor">
+      <el-row :gutter="10">
+      <!-- text-editor -->
+        <el-col :lg="editorWidth" :sm="editorWidth">
+          <quill-editor ref="myTextEditor" v-model="content" :options="editorOptions" style="height:720px;"></quill-editor>
+        </el-col>
+
+        <!-- comment -->
+        <el-col :lg="commentWidth" :sm="commentWidth">
+          <div v-show="showComment">
+            <el-card class="paper_comment" shadow="never" style="margin-top:-1px">
+              <!-- comment card header -->
+              <div slot="header" class="paper_card_header">
+                <div class="primary_time">
+                  {{ item.create_date | formatDate_card }}
+                </div>
+                <el-button icon="el-icon-close" type="text" @click="closeComment" class="paper_card_close"></el-button>
               </div>
-              <el-button icon="el-icon-close" type="text" @click="closeComment" style="float:right; margin-right:8px; "></el-button>
-            </div>
-            <el-collapse v-model="activeNames">
-              <el-collapse-item title="1: 写的太好了写的太好了" name="1" style="margin-top: -20px;">
-                <div>[评阅意见]: 写的太好了写的太好了</div>
-                <div class="paper_content">Techniques  for  automatically  designing  deep  neural  net-work architectures such as reinforcement learning based ap-proaches  have  recently  shown  promising  results.  However,their success is based on vast computational resources (e.g.hundreds of GPUs), making them difficult to be widely used.</div>
-              </el-collapse-item>
-              <el-collapse-item title="2: 写的太好了写的太好了" name="2">
-                <div>[评阅意见]: 写的太好了写的太好了</div>
-                <div class="paper_content">Techniques  for  automatically  designing  deep  neural  net-work architectures such as reinforcement learning based ap-proaches  have  recently  shown  promising  results.  However,their success is based on vast computational resources (e.g.hundreds of GPUs), making them difficult to be widely used.</div>
-              </el-collapse-item>
-              <el-collapse-item title="3: 写的太好了写的太好了" name="3">
-                <div>[评阅意见]: 写的太好了写的太好了</div>
-                <div class="paper_content">Techniques  for  automatically  designing  deep  neural  net-work architectures such as reinforcement learning based ap-proaches  have  recently  shown  promising  results.  However,their success is based on vast computational resources (e.g.hundreds of GPUs), making them difficult to be widely used.</div>
-              </el-collapse-item>
-              <el-collapse-item title="4: 写的太好了写的太好了" name="4">
-                <div>老师评阅意见: 写的太好了写的太好了</div>
-                <div class="paper_content">Techniques  for  automatically  designing  deep  neural  net-work architectures such as reinforcement learning based ap-proaches  have  recently  shown  promising  results.  However,their success is based on vast computational resources (e.g.hundreds of GPUs), making them difficult to be widely used.</div>
-              </el-collapse-item>
-            </el-collapse>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-button @click="save_change" class="btn-editor">保存修改</el-button>
-    <el-button @click="submmit_comment" type="primary" class="btn-editor">重新提交评审</el-button>
+              <!-- comment content -->
+              <el-collapse v-model="activeNames">
+                <el-collapse-item title="1: 写的太好了写的太好了" name="1" class="paper_card_content">
+                  <div>[评阅意见]: 写的太好了写的太好了</div>
+                  <div class="paper_content">Techniques  for  automatically  designing  deep  neural  net-work architectures such as reinforcement learning based ap-proaches  have  recently  shown  promising  results.  However,their success is based on vast computational resources (e.g.hundreds of GPUs), making them difficult to be widely used.</div>
+                </el-collapse-item>
+              </el-collapse>
+            </el-card>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+   
+    <!-- handle buttons -->
+    <div>
+      <el-button @click="save_change" type="primary" plain class="btn_editor">保存修改</el-button>
+      <el-button @click="submmit_comment" type="success" plain class="btn_editor">重新提交评审</el-button>
+    </div>
 
   </div>
 </template>
@@ -65,7 +78,30 @@ export default {
   name: "EditPaper2",
   data() {
     return {
+      editorOptions: {
+        placeholder: "请开始撰写你的论文，完成后请点击保存修改",
+        modules: {
+          toolbar: [
+            "bold",
+            "italic",
+            "blockquote",
+            { list: "ordered" },
+            { list: "bullet" },
+            "align",
+            "code-block",
+            { script: "sub" },
+            { script: "super" },
+            { header: [] },
+            { size: ["small", "normal", "large"] }
+          ]
+        }
+      },
       item: store.getters.temp,
+      listItems: store.getters.temp.paper_content.slice(0, -1).reverse(),
+      isShowDropdown:
+        store.getters.temp.paper_content.length > 1 ? true : false,
+      editorWidth: 18,
+      commentWidth: 6,
       content: "",
       editorOption: {},
       activeNames: ["1"],
@@ -83,8 +119,18 @@ export default {
     },
 
     closeComment() {
-      console.log("close");
+      this.editorWidth = 24;
       this.showComment = false;
+    },
+
+    handleShowComment() {
+      this.editorWidth = 18;
+      this.showComment = true;
+    },
+
+    dropdownCommand(command) {
+      // 查看历史的评阅意见
+      console.log(command);
     },
 
     save_change() {
@@ -155,9 +201,14 @@ export default {
   },
 
   filters: {
-    formatDate(time) {
+    formatDate_card(time) {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm");
+    },
+
+    formatDate_dropdown(time) {
+      let date = new Date(time);
+      return formatDate(date, "MM-dd hh:mm");
     }
   }
 };

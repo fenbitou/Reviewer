@@ -1,5 +1,4 @@
 <template>
-
   <el-card style="width: 100%">
     <el-form ref="form" :model="addform" label-width="100px">
       <el-form-item label="论文标题">
@@ -71,6 +70,7 @@ export default {
     gotoPublic() {
       this.$router.push({ path: "/public" });
     },
+    
     onSubmit() {
       let currentDate = new Date();
       if (
@@ -81,8 +81,8 @@ export default {
           paper_status: this.addform.status,
           paper_isPublic: this.addform.status === "true" ? true : false,
           paper_owner_id: this.addform.owner,
-          create_Date: currentDate,
-          update_Date: currentDate,
+          create_date: currentDate,
+          update_date: currentDate,
           update_paper_sum: 0,
           paper_content: []
         })

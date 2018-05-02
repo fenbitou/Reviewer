@@ -4,10 +4,10 @@
     <div>
       <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="input" placeholder="标题关键字" suffix-icon="el-icon-search"></el-input>
+          <el-input v-model="input" placeholder="标题关键字"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch()">搜索</el-button>
+          <el-button icon="el-icon-search" type="primary" circle @click="handleSearch()"></el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -28,6 +28,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- pagination -->
     <div style="width:280px; margin:20px auto 0 auto;">
       <div class="block">
         <span class="demonstration"></span>
@@ -35,14 +36,12 @@
           @current-change="handleCurrentChange"
           :page-size = "10"
           layout="prev, pager, next"
-          :total="paperSum">
+          :total="paperSum"
+          :current-page="currentPageNum">
         </el-pagination>
       </div>
     </div>
-
-
   </div>
-   
 </template>
 
 <script>
@@ -79,8 +78,16 @@ export default {
 
     handleSearch() {
       let words = this.input;
-      store.dispatch("GetPaperAfterSearch", words);
-      store.dispatch("GetPaperSumAfterSearch", words);
+      let pageNumber = 1;
+      if (words == "") {
+        words = "all";
+        store.dispatch("GetAllPaperSum");
+        store.dispatch("GetPagedPaper", { words, pageNumber });
+      } else {
+        this.currentPageNum = 1;
+        store.dispatch("GetPaperSumAfterSearch", words);
+        store.dispatch("GetPagedPaper", { words, pageNumber });
+      }
     },
 
     showPaper(index) {
@@ -91,11 +98,14 @@ export default {
     },
 
     handleCurrentChange(pageNumber) {
-      let item = {
-        words: this.input,
+      let search_words = "all";
+      if (this.input != "") {
+        search_words = this.input;
+      }
+      store.dispatch("GetPagedPaper", {
+        words: search_words,
         number: pageNumber
-      };
-      store.dispatch("GetPagedPaper", item);
+      });
       this.currentPageNum = pageNumber;
       this.tableData = store.getters.paperItems;
     }
@@ -105,23 +115,31 @@ export default {
     paperSum: function() {
       return parseInt(store.getters.temp);
     },
-    tableData: function() {
-      let data = [];
-      let items = store.getters.paperItems;
-      let i = 0;
-      items.forEach(item => {
-        let obj = [];
-        obj.paper_title = item.paper_title;
-        obj.paper_author = item.paper_author[0] + ", " + item.paper_author[1];
-        data[i++] = obj;
-      });
-      return data;
+    tableData: {
+      get: function() {
+        let data = [];
+        let items = store.getters.paperItems;
+        let i = 0;
+        items.forEach(item => {
+          let obj = [];
+          obj.paper_title = item.paper_title;
+          obj.paper_author = item.paper_author[0] + ", " + item.paper_author[1];
+          data[i++] = obj;
+        });
+        return data;
+      },
+      set: function(newValue) {
+        // this.tableData = newValue;
+      }
     }
   },
 
   mounted() {
-    // todo: 返回后不能记录当前的页码
-    store.dispatch("GetPagedPaper", 1);
+    // TODO: 返回后不能记录当前的页码
+    store.dispatch("GetPagedPaper", {
+      words: "all",
+      number: this.currentPageNum
+    });
     store.dispatch("GetAllPaperSum");
   }
 };

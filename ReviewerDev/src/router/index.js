@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Layout from '@/components/Personal/Layout'
-import ShowPrivate from '@/components/Personal/ShowPrivate'
 import ShowPublic from '@/components/Personal/ShowPublic'
 import ShowPDF from '@/components/Personal/ShowPDF'
 import AddPaper from '@/components/Personal/AddPaper'
@@ -14,6 +13,7 @@ import MyPaper3 from '@/components/Personal/MyPaper3'
 import EditPaper1 from '@/components/Personal/EditPaper1'
 import EditPaper2 from '@/components/Personal/EditPaper2'
 import PaperComment from '@/components/Personal/PaperComment'
+import StatusChange from '@/components/Personal/StatusChange'
 
 Vue.use(Router)
 
@@ -29,13 +29,13 @@ export default new Router({
       component: Login
     },
     {
-      path:'/register',
-      name:'Register',
+      path: '/register',
+      name: 'Register',
       component: Register
     },
     {
-      path:'/showpdf',
-      name:'ShowPDF',
+      path: '/showpdf',
+      name: 'ShowPDF',
       component: ShowPDF
     },
     {
@@ -49,44 +49,44 @@ export default new Router({
           component: ShowPublic
         },
         {
-          path: '/private',
-          name: 'PrivatePDF',
-          component: ShowPrivate
-        },
-        {
           path: '/addpaper',
           name: 'AddPaper',
           component: AddPaper
         },
         {
-          path:'/mypaper_init',
-          name:'MyPaper1',
+          path: '/mypaper_init',
+          name: 'MyPaper1',
           component: MyPaper1
         },
         {
-          path:'/mypaper_commit',
-          name:'MyPaper2',
+          path: '/mypaper_commit',
+          name: 'MyPaper2',
           component: MyPaper2
         },
         {
-          path:'/mypaper_final',
-          name:'MyPaper3',
+          path: '/mypaper_final',
+          name: 'MyPaper3',
           component: MyPaper3
         },
         {
-          path:'/edit_init',
-          name:'EditPaper1',
+          path: '/edit_init',
+          name: 'EditPaper1',
           component: EditPaper1
         },
         {
-          path:'/edit_commit',
-          name:'EditPaper2',
+          path: '/edit_commit',
+          name: 'EditPaper2',
           component: EditPaper2
         },
         {
-          path:'/paper_comment',
-          name:'PaperComment',
+          path: '/paper_comment',
+          name: 'PaperComment',
           component: PaperComment
+        },
+        {
+          path: '/change_final',
+          name: 'StatusChange',
+          component: StatusChange
         }
       ]
     }
